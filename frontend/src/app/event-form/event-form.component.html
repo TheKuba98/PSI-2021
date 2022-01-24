@@ -1,0 +1,105 @@
+<mat-card>
+  <mat-card-title>Events</mat-card-title>
+  <mat-card-subtitle>Add your new event</mat-card-subtitle>
+
+  <div *ngIf="submitted" class="event-add-success">
+    <h3>New event added correctly!</h3>
+  </div>
+
+  <form *ngIf="!submitted" [formGroup]="eventForm" (ngSubmit)="onSubmit()" class="event-form">
+    <mat-card-content>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Event name</mat-label>
+        <input type="text" matInput formControlName="eventName">
+        <mat-error *ngIf="eventName.hasError('required')">
+          Event name is <strong>required!</strong>
+        </mat-error>
+      </mat-form-field>
+      <!-- <mat-form-field appearance="fill">
+        <mat-label>Arena</mat-label>
+        <input type="list" matInput formControlName="arenaId" >
+        <mat-error *ngIf="arenaId.hasError('required')">
+          Arena is <strong>required!</strong>
+        </mat-error>
+      </mat-form-field> -->
+      <mat-form-field appearance="fill" class='arena-select'>
+        <mat-label>Arena</mat-label>
+        <mat-select [(ngModel)]="selectedArena" [ngModelOptions]="{standalone: true}">
+          <mat-option *ngFor="let arena of arenas" [value]="arena.arenaId">
+            {{arena.arenaName}}, {{arena.address}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="arenaId.hasError('required')">
+          Arena is <strong>required!</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Begin date</mat-label>
+        <input type="datetime-local" matInput formControlName="beginTimestamp">
+        <mat-error *ngIf="beginTimestamp.hasError('required')">
+          Begin date is <strong>required!</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>End date</mat-label>
+        <input type="datetime-local" matInput formControlName="endTimestamp">
+        <mat-error *ngIf="endTimestamp.hasError('required')">
+          End date is <strong>required!</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Ticket price</mat-label>
+        <input type="number" matInput formControlName="ticketPrice">
+        <mat-error *ngIf="ticketPrice.hasError('required')">
+          Ticket price is <strong>required!</strong>
+        </mat-error>
+        <mat-error *ngIf="ticketPrice.hasError('min')">
+          Ticket price must be <strong>positive</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-error *ngIf="error">{{error}}</mat-error>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Event description</mat-label>
+        <textarea type="text" class="textarea-description" matInput formControlName="eventDescription"></textarea>
+        <mat-error *ngIf="description.hasError('required')">
+          Event description is <strong>required!</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Event info filename</mat-label>
+        <input type="text" matInput readonly='true' formControlName="infoFileName">
+      </mat-form-field>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <mat-grid-list cols="1" rowHeight="15:1">
+        <mat-grid-tile>
+          <button mat-raised-button color="primary">
+            Add
+          </button>
+
+          <input
+            style="display: none"
+            type="file"
+            (change)="getDescriptionFromImage($event.target.files)"
+            #fileInput>
+          <button type="button" mat-stroked-button color="primary" accept="image/*" (click)="fileInput.click()">Upload Description</button>
+          <input
+          accept="application/pdf"
+            style="display: none"
+            type="file"
+            (change)="getEventInfoFile($event.target.files)"
+            #eventInfofileInput>
+          <button type="button" mat-stroked-button color="primary" (click)="eventInfofileInput.click()">Upload info file</button>
+        </mat-grid-tile>
+        <mat-grid-tile *ngIf="loading">
+          <mat-spinner [diameter]="30"></mat-spinner>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-actions>
+  </form>
+</mat-card>

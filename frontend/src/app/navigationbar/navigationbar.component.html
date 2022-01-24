@@ -1,0 +1,38 @@
+<p>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </button>
+        <button *ngIf="userInfo" mat-menu-item routerLink="facilities">
+          <mat-icon>home</mat-icon>
+          <span>Facilities</span>
+        </button>
+        <button *ngIf="userInfo" mat-menu-item routerLink="event">
+          <mat-icon>home</mat-icon>
+          <span>Events</span>
+        </button>
+        <button *ngIf="!userInfo" mat-menu-item routerLink="login">
+          <mat-icon>perm_identity</mat-icon>
+          <span>Login</span>
+        </button>
+        <button *ngIf="userInfo" mat-menu-item (click)="logout()">
+          <mat-icon>perm_identity</mat-icon>
+          <span>Exit</span>
+        </button>
+      </mat-menu>
+      <span>Sport Events Management</span>
+
+      <button class="languageMenu" mat-button [matMenuTriggerFor]="langMenu">Language</button>
+      <mat-menu #langMenu="matMenu">
+        <button mat-menu-item>English</button>
+        <button mat-menu-item>Polski</button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</p>
