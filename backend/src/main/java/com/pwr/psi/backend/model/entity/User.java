@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -27,7 +28,6 @@ public class User {
     private String lastName;
     @Column(name = "birth_date")
     private LocalDate birthDate;
-
 
     @Override
     public boolean equals(Object o) {

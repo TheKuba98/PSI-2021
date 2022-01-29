@@ -22,6 +22,7 @@ CREATE TABLE review
     opinion     varchar(255) NOT NULL,
     acting_dean varchar(255) NOT NULL,
     review_id   int(10)      NOT NULL AUTO_INCREMENT,
+    thesis_id   int(10)      NOT NULL,
     PRIMARY KEY (review_id)
 );
 CREATE TABLE share
@@ -42,18 +43,7 @@ CREATE TABLE thesis
     thesis_id       int(10)      NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (thesis_id)
 );
-CREATE TABLE thesis_review
-(
-    thesis_id int(10) NOT NULL,
-    review_id int(10) NOT NULL,
-    PRIMARY KEY (review_id, thesis_id)
-);
-CREATE TABLE thesis_reviewer
-(
-    thesis_id int(10)      NOT NULL,
-    username  varchar(255) NOT NULL,
-    PRIMARY KEY (thesis_id, username)
-);
+
 CREATE TABLE thesis_details
 (
     thesis_details_id int(10)      NOT NULL AUTO_INCREMENT,
@@ -91,18 +81,12 @@ ALTER TABLE share
     ADD CONSTRAINT FKShare187612 FOREIGN KEY (username) REFERENCES `user` (username);
 ALTER TABLE share
     ADD CONSTRAINT FKShare364126 FOREIGN KEY (thesis_id) REFERENCES thesis (thesis_id);
-ALTER TABLE thesis_review
-    ADD CONSTRAINT FKThesis_Rev296576 FOREIGN KEY (review_id) REFERENCES review (review_id);
-ALTER TABLE thesis_review
-    ADD CONSTRAINT FKThesis_Rev953315 FOREIGN KEY (thesis_id) REFERENCES thesis (thesis_id);
-ALTER TABLE thesis_reviewer
-    ADD CONSTRAINT FKThesis_Rev880113 FOREIGN KEY (username) REFERENCES `user` (username);
-ALTER TABLE thesis_reviewer
-    ADD CONSTRAINT FKThesis_Rev539738 FOREIGN KEY (thesis_id) REFERENCES thesis (thesis_id);
 ALTER TABLE review
     ADD CONSTRAINT FKReview196700 FOREIGN KEY (acting_dean) REFERENCES `user` (username);
 ALTER TABLE review
     ADD CONSTRAINT FKReview452889 FOREIGN KEY (username) REFERENCES `user` (username);
+ALTER TABLE review
+    ADD CONSTRAINT FKReview452890 FOREIGN KEY (thesis_id) REFERENCES `thesis` (thesis_id);
 ALTER TABLE thesis_details
     ADD CONSTRAINT FKThesisDeta573489 FOREIGN KEY (field_id) REFERENCES field (field_id);
 ALTER TABLE thesis_details

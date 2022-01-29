@@ -7,10 +7,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.Set;
 
 @Setter
 @Getter
@@ -27,4 +25,10 @@ public class UniversityEmployee extends User {
     private EAcademicTitle academicTitle;
     private int thesisWorkloadLimit;
     private boolean workloadIncreased;
+
+    @OneToMany(mappedBy="supervisor")
+    private Set<Thesis> thesis;
+
+    @OneToMany(mappedBy="author")
+    private Set<Review> reviews;
 }
