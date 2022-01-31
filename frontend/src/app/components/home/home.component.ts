@@ -21,8 +21,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.user.subscribe(response=>{
-      this.roles = response.roles
-      this.username = response.username;
+      this.roles = response?.roles
+      this.username = response?.username;
     });
     this.showStudentStuff = this.roles.includes('ROLE_STUDENT');
     this.showEmployeeStuff = this.roles.includes('ROLE_EMPLOYEE');

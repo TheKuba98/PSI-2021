@@ -3,6 +3,7 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../auth/auth.service";
 import {Router} from "@angular/router";
 import {first} from "rxjs/operators";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   error = '';
 
   constructor(private formBuilder: FormBuilder,
+  private translate: TranslateService,
   private authService : AuthService, private router: Router) {
   }
 
@@ -50,8 +52,8 @@ export class LoginComponent implements OnInit {
         data => {
           this.router.navigate(['/']);
         },
-        (error) => {
-          this.error = error.error;
+        () => {
+          this.translate.get('form.loginComponent.error').subscribe( x => this.error = x);
           this.loading = false;
         });
   }

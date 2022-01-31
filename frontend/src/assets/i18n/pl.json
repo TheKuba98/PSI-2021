@@ -1,0 +1,52 @@
+{
+  "language" : {
+    "label" : "Język",
+    "polish" : "Polski",
+    "english" : "Angielski"
+  },
+  "user" : {
+    "login" : "Zaloguj",
+    "logout" : "Wyloguj",
+    "account" : "Konto"
+  },
+  "assignment" : {
+    "find" : "Szukaj prac",
+    "my" : "Moje prace"
+  },
+  "thesis": {
+    "avaliable" : "Dostępne prace",
+    "submit" : "Zgłoś temat",
+    "list" : {
+      "topic" : "Temat",
+      "supervisor" : "Opiekun",
+      "type" : "Rodzaj",
+      "year" : "Rok",
+      "field" : "Kierunek",
+      "filter" : "Filtruj",
+      "assign" : "Rezerwuj"
+    }
+  },
+  "reviewer": {
+    "assign" : "Przydziel recenzentów"
+  },
+  "home" : {
+    "name" : "Strona główna"
+  },
+  "form" : {
+    "loginComponent": {
+      "label": "Zaloguj się!",
+      "desc": "Podaj swój login i hasło poniżej",
+      "password": {
+        "label": "Hasło",
+        "placeholder": "Hasło...",
+        "required": "Hasło jest wymagane!"
+      },
+      "login": {
+        "label": "Login",
+        "placeholder": "Login...",
+        "required": "Login jest wymagany!"
+      },
+      "error" : "Login lub hasło jest nieprawidłowe"
+    }
+  }
+}

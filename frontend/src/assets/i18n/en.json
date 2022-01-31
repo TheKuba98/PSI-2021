@@ -1,0 +1,52 @@
+{
+  "language" : {
+    "label" : "Language",
+    "polish" : "Polish",
+    "english" : "English"
+  },
+  "user" : {
+    "login" : "Sign in",
+    "logout" : "Logout",
+    "account" : "Account"
+  },
+  "assignment" : {
+    "find" : "Find assignments",
+    "my" : "My assignments"
+  },
+  "thesis": {
+    "avaliable" : "Avaliable theses",
+    "submit" : "Submit subject",
+    "list" : {
+      "topic" : "Topic",
+      "supervisor" : "Supervisor",
+      "type" : "Type",
+      "year" : "Year",
+      "field" : "Field",
+      "filter" : "Filter",
+      "assign" : "Assign"
+    }
+  },
+  "reviewer": {
+    "assign" : "Assign reviewers"
+  },
+  "home" : {
+    "name" : "Home page"
+  },
+  "form" : {
+    "loginComponent" : {
+      "label" : "Sign in!",
+      "desc" : "Type in your login and password below",
+      "password" : {
+        "label" : "Password",
+        "placeholder" : "Password...",
+        "required" : "Password is required!"
+      },
+      "login" : {
+        "label" : "Login",
+        "placeholder" : "Login...",
+        "required" : "Login is required!"
+      },
+      "error" : "Login or password is incorrect"
+    }
+  }
+}

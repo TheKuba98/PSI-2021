@@ -7,7 +7,7 @@
       <mat-menu #menu="matMenu">
         <button mat-menu-item routerLink="">
           <mat-icon>home</mat-icon>
-          <span>Home</span>
+          <span>{{'home.name' | translate}}</span>
         </button>
         <button *ngIf="userInfo" mat-menu-item routerLink="facilities">
           <mat-icon>home</mat-icon>
@@ -19,7 +19,7 @@
         </button>
         <button *ngIf="!userInfo" mat-menu-item routerLink="login">
           <mat-icon>perm_identity</mat-icon>
-          <span>Login</span>
+          <span>{{'user.login' | translate}}</span>
         </button>
         <button *ngIf="userInfo" mat-menu-item (click)="logout()">
           <mat-icon>perm_identity</mat-icon>
@@ -29,28 +29,34 @@
 
       <span [routerLink]="''" class="home-link">PSI</span>
       <div class="nav-links">
-      <span class="nav-link" *ngIf="showStudentStuff">Moje prace</span>
-      <span class="nav-link" [routerLink]="'theses'" *ngIf="showStudentStuff">Szukaj prac</span>
-      <span class="nav-link" *ngIf="showStudentStuff">Zgłoś temat</span>
+        <span class="nav-link" *ngIf="showStudentStuff">{{'assignment.my' | translate}}</span>
+        <span class="nav-link" [routerLink]="'theses'" *ngIf="showStudentStuff">{{'assignment.find' | translate}}</span>
+        <span class="nav-link" *ngIf="showStudentStuff">{{'thesis.submit' | translate}}</span>
 
-      <span class="nav-link" *ngIf="showEmployeeStuff">Moje prace</span>
-      <span class="nav-link" *ngIf="showEmployeeStuff">Zgłoś temat</span>
+        <span class="nav-link" *ngIf="showEmployeeStuff">{{'assignment.my' | translate}}</span>
+        <span class="nav-link" *ngIf="showEmployeeStuff">{{'assignment.find' | translate}}</span>
 
-      <span class="nav-link" *bgIf="showRepresentativeStuff">Przydziel recenzentów</span>
+        <span class="nav-link" *ngIf="showRepresentativeStuff">{{'reviewer.assign' | translate}}</span>
       </div>
 
-     <div class="nav-right">
-      <button class="languageMenu" mat-button [matMenuTriggerFor]="langMenu">Language <mat-icon>keyboard_arrow_down</mat-icon></button>
-      <mat-menu #langMenu="matMenu">
-        <button mat-menu-item>English</button>
-        <button mat-menu-item>Polski</button>
-      </mat-menu>
-      <button class="accountMenu" mat-button [matMenuTriggerFor]="accMenu"> <mat-icon>account_circle</mat-icon> {{firstName}} {{lastName}}<mat-icon>keyboard_arrow_down</mat-icon></button>
-      <mat-menu #accMenu="matMenu">
-        <button mat-menu-item>Konto</button>
-        <button mat-menu-item (click)="logout()">Wyloguj</button>
-      </mat-menu>
-    </div>
+      <div class="nav-right">
+        <button class="languageMenu" mat-button [matMenuTriggerFor]="langMenu">{{'language.label' | translate}}
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #langMenu="matMenu">
+          <button (click)="setLanguage('en')" mat-menu-item>{{'language.english' | translate}}</button>
+          <button (click)="setLanguage('pl')" mat-menu-item>{{'language.polish' | translate}}</button>
+        </mat-menu>
+        <button class="accountMenu" mat-button [matMenuTriggerFor]="accMenu">
+          <mat-icon>account_circle</mat-icon>
+          {{firstName}} {{lastName}}
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <mat-menu #accMenu="matMenu">
+          <button mat-menu-item>{{'user.account' | translate }}</button>
+          <button mat-menu-item (click)="logout()">{{'user.logout' | translate}}</button>
+        </mat-menu>
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
 </p>

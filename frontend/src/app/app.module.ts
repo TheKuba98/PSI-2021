@@ -15,7 +15,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {BasicAuthInterceptor} from "./interceptors/basic-auth.interceptor";
 import { EventComponent } from './componOld/event/event.component';
 import { FacilitiesComponent } from './componOld/facilities/facilities.component';
@@ -29,6 +29,8 @@ import { FacilitiesFormComponent } from './componOld/facilities-form/facilities-
 import { EventFormComponent } from './componOld/event-form/event-form.component';
 import { EventDetailsComponent } from './componOld/event-details/event-details.component';
 import { ThesisListComponent } from './components/thesis-list/thesis-list.component';
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 // import { I18NextModule, ITranslationService, I18NEXT_SERVICE } from 'angular-i18next';
 
 
@@ -40,7 +42,7 @@ import { ThesisListComponent } from './components/thesis-list/thesis-list.compon
 //   ns: [
 //     'translation',
 //     'validation',
-//     'error'          
+//     'error'
 //   ],
 // }
 
@@ -65,6 +67,9 @@ import { ThesisListComponent } from './components/thesis-list/thesis-list.compon
 //   useFactory: localeIdFactory
 // }];
 
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -98,6 +103,14 @@ import { ThesisListComponent } from './components/thesis-list/thesis-list.compon
     MatTabsModule,
     MatSelectModule,
     FormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+      defaultLanguage: 'pl'
+    })
     // I18NextModule.forRoot()
   ],
   providers: [
