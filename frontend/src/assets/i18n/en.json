@@ -24,6 +24,23 @@
       "field" : "Field",
       "filter" : "Filter",
       "assign" : "Assign"
+    },
+    "type" : {
+      "MASTERS" : "Master",
+      "BSC" : "Bachelor of Science",
+      "BA" : "Bachelor of Arts"
+    },
+    "language" : {
+      "polish" : "Polish",
+      "english" : "English"
+    },
+    "status" : {
+      "DONE" : "Completed",
+      "ASSIGNED" : "Assigned",
+      "TO_ACCEPT" : "To aaccept",
+      "REGISTERED" : "Available",
+      "unavailable": "Unavailable",
+      "reserve": "Reserve"
     }
   },
   "reviewer": {

@@ -1,6 +1,7 @@
 package com.pwr.psi.backend.controller.impl;
 
 import com.pwr.psi.backend.controller.api.ThesisController;
+import com.pwr.psi.backend.model.dto.FilterOptionsDto;
 import com.pwr.psi.backend.model.dto.ThesisDto;
 import com.pwr.psi.backend.model.dto.ThesisSearchDto;
 import com.pwr.psi.backend.service.ThesisService;
@@ -24,5 +25,10 @@ public class ThesisControllerImpl implements ThesisController {
     @Override
     public ResponseEntity<List<ThesisDto>> findAllAvailableTheses() {
         return ResponseEntity.ok(thesisService.findAllAvailableTheses());
+    }
+
+    @Override
+    public ResponseEntity<FilterOptionsDto> getFilterOptions() {
+        return ResponseEntity.ok(thesisService.getFilterOptions());
     }
 }

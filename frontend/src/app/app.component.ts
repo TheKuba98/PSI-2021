@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UserDto} from "./user";
+import {UserDto} from "./model/dto/user";
 import {Router} from "@angular/router";
 import {AuthService} from "./auth/auth.service";
 import {TranslateService} from "@ngx-translate/core";

@@ -31,41 +31,7 @@ import { EventDetailsComponent } from './componOld/event-details/event-details.c
 import { ThesisListComponent } from './components/thesis-list/thesis-list.component';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
-// import { I18NextModule, ITranslationService, I18NEXT_SERVICE } from 'angular-i18next';
-
-
-// const i18nextOptions = {
-//   whitelist: ['en', 'pl'],
-//   fallbackLng: 'en',
-//   debug: true,
-//   returnEmptyString: false,
-//   ns: [
-//     'translation',
-//     'validation',
-//     'error'
-//   ],
-// }
-
-// export function appInit(i18next: ITranslationService) {
-//   return () => i18next.init(i18nextOptions);
-// }
-
-// export function localeIdFactory(i18next: ITranslationService)  {
-//   return i18next.language;
-// }
-
-// export const I18N_PROVIDERS = [
-// {
-//   provide: APP_INITIALIZER,
-//   useFactory: appInit,
-//   deps: [I18NEXT_SERVICE],
-//   multi: true
-// },
-// {
-//   provide: LOCALE_ID,
-//   deps: [I18NEXT_SERVICE],
-//   useFactory: localeIdFactory
-// }];
+import {MatRippleModule} from '@angular/material/core';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -102,6 +68,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatGridListModule,
     MatTabsModule,
     MatSelectModule,
+    MatRippleModule,
     FormsModule,
     TranslateModule.forRoot({
       loader: {

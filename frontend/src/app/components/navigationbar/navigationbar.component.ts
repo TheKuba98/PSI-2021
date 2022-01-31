@@ -2,7 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router, RouterEvent} from "@angular/router";
 import {filter} from "rxjs/operators";
 import {AuthService} from '../../auth/auth.service';
-import {UserDto} from "../../user";
+import {UserDto} from "../../model/dto/user";
 import {TranslateService} from "@ngx-translate/core";
 
 @Component({

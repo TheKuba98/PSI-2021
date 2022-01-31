@@ -29,6 +29,18 @@
     align-items: center;
 }
 
+.filter{
+    max-width: 11rem;
+}
+
+.clear-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
 .filter-button{
     margin-bottom: 1rem;
 }
@@ -36,3 +48,26 @@
 .thesis-table{
     width: 100%;
 }
+
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+  }
+
+  .unavailable-button{
+      pointer-events: none;
+      width: 7rem;
+    //   cursor: not-allowed;
+  }
+
+  .available-button{
+    background-color: #2e7d32;
+    color: white;
+    width: 7rem;
+  }
+
+  .action-column{
+    text-align: center;
+  }

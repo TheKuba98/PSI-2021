@@ -24,6 +24,23 @@
       "field" : "Kierunek",
       "filter" : "Filtruj",
       "assign" : "Rezerwuj"
+    },
+    "type" : {
+      "MASTERS" : "Magisterska",
+      "BSC" : "Inżynierska",
+      "BA" : "Licencjacka"
+    },
+    "language" : {
+      "polish" : "Polski",
+      "english" : "Angielski"
+    },
+    "status" : {
+      "DONE" : "Zakończona",
+      "ASSIGNED" : "Przypisana",
+      "TO_ACCEPT" : "Do akceptacji",
+      "REGISTERED" : "Dostępna",
+      "unavailable": "Niedostępna",
+      "reserve": "Rezerwuj"
     }
   },
   "reviewer": {

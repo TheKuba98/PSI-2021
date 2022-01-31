@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class ThesisDto {
-    private String thema;
+    private String theme;
     private String supervisorUsername;
     private String supervisorNames;
     private String type;

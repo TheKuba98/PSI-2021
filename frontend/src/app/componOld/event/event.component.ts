@@ -5,7 +5,7 @@ import { MatTabChangeEvent } from '@angular/material/tabs';
 import { ArenaDto } from '../../model/dto/arenaDto';
 import { ArenaService } from '../../services/arena.service';
 import { AuthService } from '../../auth/auth.service';
-import { UserDto } from '../../user';
+import { UserDto } from '../../model/dto/user';
 
 
 @Component({
