@@ -19,7 +19,7 @@ public class UserService {
     public UserDto getUserByUsername(String username, String password) throws UserNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException("User with this login does not exsit"));
         if (!passwordEncoder.matches(password, user.getPassword())) throw new UserNotFoundException("Incorrect password");
-        return new UserDto(user.getUsername(), user.getRoles());
+        return new UserDto(user.getUsername(), user.getRoles(), user.getFirstName(), user.getLastName());
     }
 }
 

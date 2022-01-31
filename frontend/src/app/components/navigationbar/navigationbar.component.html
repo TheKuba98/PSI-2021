@@ -1,5 +1,5 @@
 <p>
-  <mat-toolbar color="primary">
+  <mat-toolbar class='nav-bar'>
     <mat-toolbar-row>
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
@@ -26,13 +26,31 @@
           <span>Exit</span>
         </button>
       </mat-menu>
-      <span>Sport Events Management</span>
 
-      <button class="languageMenu" mat-button [matMenuTriggerFor]="langMenu">Language</button>
+      <span [routerLink]="''" class="home-link">PSI</span>
+      <div class="nav-links">
+      <span class="nav-link" *ngIf="showStudentStuff">Moje prace</span>
+      <span class="nav-link" [routerLink]="'theses'" *ngIf="showStudentStuff">Szukaj prac</span>
+      <span class="nav-link" *ngIf="showStudentStuff">Zgłoś temat</span>
+
+      <span class="nav-link" *ngIf="showEmployeeStuff">Moje prace</span>
+      <span class="nav-link" *ngIf="showEmployeeStuff">Zgłoś temat</span>
+
+      <span class="nav-link" *bgIf="showRepresentativeStuff">Przydziel recenzentów</span>
+      </div>
+
+     <div class="nav-right">
+      <button class="languageMenu" mat-button [matMenuTriggerFor]="langMenu">Language <mat-icon>keyboard_arrow_down</mat-icon></button>
       <mat-menu #langMenu="matMenu">
         <button mat-menu-item>English</button>
         <button mat-menu-item>Polski</button>
       </mat-menu>
+      <button class="accountMenu" mat-button [matMenuTriggerFor]="accMenu"> <mat-icon>account_circle</mat-icon> {{firstName}} {{lastName}}<mat-icon>keyboard_arrow_down</mat-icon></button>
+      <mat-menu #accMenu="matMenu">
+        <button mat-menu-item>Konto</button>
+        <button mat-menu-item (click)="logout()">Wyloguj</button>
+      </mat-menu>
+    </div>
     </mat-toolbar-row>
   </mat-toolbar>
 </p>

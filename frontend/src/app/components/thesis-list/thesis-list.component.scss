@@ -1,0 +1,38 @@
+.title {
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.container {
+    // height: 50%;
+    // width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    margin: 3rem;
+    padding: 3rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.filters {
+    background-color: whitesmoke;
+    padding-top: 1rem;
+    // padding-bottom: 1rem;
+    border-radius: 5px;
+    margin: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.filter-button{
+    margin-bottom: 1rem;
+}
+
+.thesis-table{
+    width: 100%;
+}

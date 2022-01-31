@@ -4,5 +4,5 @@ public enum ThesisStatus {
     DONE, //zrealizowana
     ASSIGNED, //przypisana
     TO_ACCEPT, //do akceptacji
-    NOTIFIED
+    REGISTERED   //zgłoszona
 }

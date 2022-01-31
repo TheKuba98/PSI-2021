@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpEvent} from "@angular/common/http";
-import { EventDto } from '../dto/eventDto';
+import { EventDto } from '../model/dto/eventDto';
 import { Observable} from 'rxjs';
-import { EventForm } from '../dto/eventForm';
-import { ParticipationDto } from '../dto/participationDto';
-import {EventDescription} from "../dto/eventDescription";
-import { EventInfoFilename } from '../dto/eventInfoFilename';
+import { EventForm } from '../model/dto/eventForm';
+import { ParticipationDto } from '../model/dto/participationDto';
+import {EventDescription} from "../model/dto/eventDescription";
+import { EventInfoFilename } from '../model/dto/eventInfoFilename';
 
 @Injectable({
   providedIn: 'root'

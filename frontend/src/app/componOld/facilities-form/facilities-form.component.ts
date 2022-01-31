@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { ArenaForm } from '../dto/arenaForm';
-import { ArenaService } from '../service/arena.service';
+import { ArenaForm } from '../../model/dto/arenaForm';
+import { ArenaService } from '../../services/arena.service';
 
 @Component({
   selector: 'app-facilities-form',

@@ -14,8 +14,8 @@ public interface AuthController {
     @PostMapping("/login")
     ResponseEntity<UserDto> login(@RequestBody UserForm userForm) throws UserNotFoundException;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/test-user")
+    @PreAuthorize("hasRole('ROLE_STUDENT')")
+    @GetMapping("/test-student")
     String getTestUser();
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

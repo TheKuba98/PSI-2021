@@ -51,7 +51,7 @@ CREATE TABLE thesis_details
     thesis_type       varchar(255) NOT NULL,
     thema             varchar(255) NOT NULL,
     field_id          int(10)      NOT NULL,
-    username          varchar(255) NOT NULL,
+    username          varchar(255) ,
     thesis_id         int(10)      NOT NULL,
     PRIMARY KEY (thesis_details_id)
 );

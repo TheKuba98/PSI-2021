@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ArenaDto } from '../dto/arenaDto';
-import { EventForm } from '../dto/eventForm';
-import { ArenaService } from '../service/arena.service';
-import { EventService } from '../service/event.service';
+import { ArenaDto } from '../../model/dto/arenaDto';
+import { EventForm } from '../../model/dto/eventForm';
+import { ArenaService } from '../../services/arena.service';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-event-form',

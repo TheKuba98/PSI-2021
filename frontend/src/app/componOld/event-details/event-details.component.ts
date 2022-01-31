@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
-import { EventDto } from '../dto/eventDto';
-import { EventService } from '../service/event.service';
+import { AuthService } from '../../auth/auth.service';
+import { EventDto } from '../../model/dto/eventDto';
+import { EventService } from '../../services/event.service';
 import { saveAs } from 'file-saver';
 
 @Component({

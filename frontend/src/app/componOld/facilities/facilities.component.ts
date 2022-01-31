@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ArenaDto } from '../dto/arenaDto';
-import { ArenaService } from '../service/arena.service';
+import { ArenaDto } from '../../model/dto/arenaDto';
+import { ArenaService } from '../../services/arena.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-facilities',

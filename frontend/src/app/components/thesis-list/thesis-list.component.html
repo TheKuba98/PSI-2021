@@ -1,0 +1,92 @@
+
+  <div class="container">
+    <div class="title">Dostępne prace</div>
+    <div class="filters">
+        <mat-form-field class="filter" appearance="fill">
+            <mat-label>Temat</mat-label>
+            <input matInput>
+          </mat-form-field>
+        <mat-form-field class="filter" appearance="fill">            
+            <mat-label>Opiekun</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="filter" appearance="fill">
+            <mat-label>Rodzaj</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="filter" appearance="fill">
+            <mat-label>Rok</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="filter" appearance="fill">
+            <mat-label>Kierunek</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="filter" appearance="fill">
+            <mat-label>Język</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button class="filter-button" mat-raised-button>Filtruj</button>
+    </div>
+
+    <div class="thesis-table">
+        <table *ngIf="!loading" mat-table [dataSource]="theses" class="mat-elevation-z8 thesis-table">
+    
+            <ng-container matColumnDef="thema">
+                <th mat-header-cell *matHeaderCellDef> Temat </th>
+                <td mat-cell *matCellDef="let element">  </td>
+              </ng-container>
+        
+            <ng-container matColumnDef="supervisor">
+              <th mat-header-cell *matHeaderCellDef> Opiekun </th>
+              <td mat-cell *matCellDef="let element">  </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef> Rodzaj </th>
+                <td mat-cell *matCellDef="let element"> </td>
+              </ng-container>
+          
+            <ng-container matColumnDef="year">
+              <th mat-header-cell *matHeaderCellDef> Rok </th>
+              <td mat-cell *matCellDef="let element">  </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="field">
+              <th mat-header-cell *matHeaderCellDef> Kierunek </th>
+              <td mat-cell *matCellDef="let element">  </td>
+            </ng-container>
+
+            <ng-container matColumnDef="language">
+                <th mat-header-cell *matHeaderCellDef> Język </th>
+                <td mat-cell *matCellDef="let element">  </td>
+              </ng-container>
+    
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef> Rezerwuj </th>
+              <!-- <td mat-cell *matCellDef="let element">
+                 <button mat-stroked-button color="warn" *ngIf="element.participate && element.accepted" (click)="quitEvent(element.eventId)">Quit</button>
+                </td> -->
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+
+    </div>
+  </div>

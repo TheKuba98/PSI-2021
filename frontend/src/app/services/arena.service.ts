@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import { ArenaDto } from '../dto/arenaDto';
-import { ArenaForm} from '../dto/arenaForm';
+import { ArenaDto } from '../model/dto/arenaDto';
+import { ArenaForm} from '../model/dto/arenaForm';
 import { Observable} from 'rxjs';
 
 @Injectable({

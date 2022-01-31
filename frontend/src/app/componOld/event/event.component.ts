@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { EventDto } from '../dto/eventDto';
-import { EventService } from '../service/event.service';
+import { EventDto } from '../../model/dto/eventDto';
+import { EventService } from '../../services/event.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
-import { ArenaDto } from '../dto/arenaDto';
-import { ArenaService } from '../service/arena.service';
-import { AuthService } from '../auth/auth.service';
-import { UserDto } from '../user';
+import { ArenaDto } from '../../model/dto/arenaDto';
+import { ArenaService } from '../../services/arena.service';
+import { AuthService } from '../../auth/auth.service';
+import { UserDto } from '../../user';
 
 
 @Component({
