@@ -25,4 +25,8 @@ export class ThesisService {
     getFilterOptions():Observable<FilterOptionsDto>{
       return this.httpClient.get<FilterOptionsDto>('http://localhost:8080/api/filter-options');
     }
+    
+    getMyFilteredTheses(thesisSearchDto:ThesisSearchDto):Observable<ThesisDto[]>{
+      return this.httpClient.post<ThesisDto[]>('http://localhost:8080/api/my-theses',thesisSearchDto);
+    }
 }

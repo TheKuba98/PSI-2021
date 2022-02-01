@@ -35,14 +35,14 @@ public class ThesisDetails {
     @NotNull
     private String thema;
 
-    @Column(name = "username")
+    //    TODO: To nie jest student? (ManyToOne?, może być null jak nie ma autora jeszcze?)
+//    @Column(name = "username")
 //    @NotNull ??
-    private String username;
+//    private String username;
 
-//    TODO: To nie jest student? (ManyToOne?, może być null jak nie ma autora jeszcze?)
-//    @ManyToOne
-//    @JoinColumn(name = "username")
-//    private Student student;
+    @ManyToOne
+    @JoinColumn(name = "username")
+    private Student student;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "thesis_id", referencedColumnName = "thesis_id")

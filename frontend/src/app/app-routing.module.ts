@@ -8,11 +8,13 @@ import { FacilitiesFormComponent } from './componOld/facilities-form/facilities-
 import { EventFormComponent } from './componOld/event-form/event-form.component';
 import { EventDetailsComponent } from './componOld/event-details/event-details.component';
 import { ThesisListComponent } from './components/thesis-list/thesis-list.component';
+import { MyThesisListComponent } from './components/my-thesis-list/my-thesis-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component:LoginComponent},
   { path: 'theses', component:ThesisListComponent},
+  { path: 'my-theses', component:MyThesisListComponent},
   { path: 'facilities', component:FacilitiesComponent},
   { path: 'event', component:EventComponent},
   { path: 'facilities-form', component:FacilitiesFormComponent},

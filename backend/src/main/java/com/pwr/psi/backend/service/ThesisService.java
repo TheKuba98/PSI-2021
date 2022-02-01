@@ -4,13 +4,8 @@ import com.pwr.psi.backend.model.dto.FilterOptionsDto;
 import com.pwr.psi.backend.model.dto.ThesisDto;
 import com.pwr.psi.backend.model.dto.ThesisSearchDto;
 import com.pwr.psi.backend.model.dto.UserDto;
-import com.pwr.psi.backend.model.entity.Field;
-import com.pwr.psi.backend.model.entity.ThesisDetails;
-import com.pwr.psi.backend.model.entity.UniversityEmployee;
-import com.pwr.psi.backend.repository.FieldRepository;
-import com.pwr.psi.backend.repository.ThesisDetailsRepository;
-import com.pwr.psi.backend.repository.ThesisRepository;
-import com.pwr.psi.backend.repository.UniversityEmployeeRepository;
+import com.pwr.psi.backend.model.entity.*;
+import com.pwr.psi.backend.repository.*;
 import com.pwr.psi.backend.service.mapper.ThesisMapper;
 import com.pwr.psi.backend.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +24,7 @@ public class ThesisService {
     private final ThesisRepository thesisRepository;
     private final ThesisDetailsRepository thesisDetailsRepository;
     private final UniversityEmployeeRepository universityEmployeeRepository;
+    private final UserRepository userRepository;
     private final ThesisMapper thesisMapper;
     private final UserMapper userMapper;
     private final FieldRepository fieldRepository;
@@ -40,6 +36,31 @@ public class ThesisService {
     public List<ThesisDto> findFilteredAvailableTheses(ThesisSearchDto thesisSearchDto) {
         List<ThesisDto> thesisDtoList = thesisMapper.thesisListToThesisDtoList(thesisRepository.findAllBySupervisorNotNull());
         return filterTheses(thesisDtoList, thesisSearchDto);
+    }
+
+    public List<ThesisDto> findMyFilteredThesesBasedOnUserRole(ThesisSearchDto thesisSearchDto, String name) {
+        User user = userRepository.findByUsername(name).orElse(null);
+
+        if (user.getRoles().contains("ROLE_STUDENT")) {
+            return findMyThesesAsAuthor(thesisSearchDto, user);
+        }
+
+        if (user.getRoles().contains("ROLE_EMPLOYEE")) {
+            return findMyThesesAsSupervisor(thesisSearchDto, user);
+        }
+
+        return null;
+    }
+
+    private List<ThesisDto> findMyThesesAsAuthor(ThesisSearchDto thesisSearchDto, User user) {
+        List<ThesisDto> list = thesisMapper.thesisListToThesisDtoList(thesisRepository.findAllByAuthorsContains((Student) user));
+        return filterTheses(list, thesisSearchDto);
+    }
+
+    private List<ThesisDto> findMyThesesAsSupervisor(ThesisSearchDto thesisSearchDto, User user) {
+        List<ThesisDto> list = thesisMapper.thesisListToThesisDtoList(thesisRepository.findAllBySupervisorEquals((UniversityEmployee) user));
+        list.forEach(System.out::println);
+        return filterTheses(list, thesisSearchDto);
     }
 
     private List<ThesisDto> filterTheses(List<ThesisDto> thesisListDto, ThesisSearchDto thesisSearchDto) {

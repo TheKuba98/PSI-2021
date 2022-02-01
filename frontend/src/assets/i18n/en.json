@@ -15,10 +15,12 @@
   },
   "thesis": {
     "avaliable" : "Avaliable theses",
+    "my" : "My theses",
     "submit" : "Submit subject",
     "list" : {
       "topic" : "Topic",
       "supervisor" : "Supervisor",
+      "candidate":"Author",
       "type" : "Type",
       "year" : "Year",
       "field" : "Field",
@@ -40,7 +42,8 @@
       "TO_ACCEPT" : "To aaccept",
       "REGISTERED" : "Available",
       "unavailable": "Unavailable",
-      "reserve": "Reserve"
+      "reserve": "Reserve",
+      "modify": "Modify"
     }
   },
   "reviewer": {

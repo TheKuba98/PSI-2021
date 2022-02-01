@@ -3,6 +3,8 @@ package com.pwr.psi.backend.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 public class ThesisDto {
@@ -14,4 +16,5 @@ public class ThesisDto {
     private String fieldName;
     private String language;
     private String status;
+    private List<UserDto> authors;
 }

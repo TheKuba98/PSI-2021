@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -20,6 +21,16 @@ public class ThesisControllerImpl implements ThesisController {
     @Override
     public ResponseEntity<List<ThesisDto>> findFilteredAvailableTheses(ThesisSearchDto thesisSearchDto) {
         return ResponseEntity.ok(thesisService.findFilteredAvailableTheses(thesisSearchDto));
+    }
+
+    @Override
+    public ResponseEntity<List<ThesisDto>> findMyFilteredTheses(ThesisSearchDto thesisSearchDto, Principal principal) {
+        return ResponseEntity.ok(thesisService.findMyFilteredThesesBasedOnUserRole(thesisSearchDto, principal.getName()));
+    }
+
+    @Override
+    public ResponseEntity<ThesisDto> assignThesis(int id) {
+        return null;
     }
 
     @Override

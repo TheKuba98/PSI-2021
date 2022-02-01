@@ -2,7 +2,7 @@
 
   <div class="home-title">Menu</div>
   <div class="buttons">
-    <button *ngIf="showStudentStuff" class="menu-button">
+    <button *ngIf="showStudentStuff" class="menu-button" [routerLink]="'my-theses'">
       <div class="button-conent">
         <mat-icon>assignment</mat-icon>
         <div class="vl"></div>
@@ -24,7 +24,7 @@
       </div>
     </button>
 
-    <button *ngIf="showEmployeeStuff" class="menu-button">
+    <button *ngIf="showEmployeeStuff" class="menu-button" [routerLink]="'my-theses'">
       <div class="button-conent">
         <mat-icon>assignment</mat-icon>
         <div class="vl"></div>

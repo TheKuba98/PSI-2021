@@ -1,3 +1,5 @@
+import { UserDto } from "./user";
+
 export class ThesisDto {
   theme: string;
   supervisorUsername: string;
@@ -7,4 +9,5 @@ export class ThesisDto {
   fieldName: string;
   language: string;
   status: string;
+  authors:UserDto[];
 }

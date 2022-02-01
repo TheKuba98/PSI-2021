@@ -56,18 +56,30 @@
     height: 50%;
   }
 
-  .unavailable-button{
+  .unavailable-button {
       pointer-events: none;
       width: 8rem;
     //   cursor: not-allowed;
   }
 
-  .available-button{
+  .available-button {
     background-color: #2e7d32;
     color: white;
     width: 8rem;
   }
 
-  .action-column{
+  .wait-button {
+    background-color: #e65100;
+    color: white;
+    pointer-events: none;
+    width: 8rem;
+  }
+
+  .action-column {
     text-align: center;
+  }
+
+  .primary-button {
+    width: 8rem;
+    pointer-events: none;
   }

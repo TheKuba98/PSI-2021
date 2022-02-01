@@ -15,10 +15,12 @@
   },
   "thesis": {
     "avaliable" : "Dostępne prace",
+    "my" : "Moje prace",
     "submit" : "Zgłoś temat",
     "list" : {
       "topic" : "Temat",
       "supervisor" : "Opiekun",
+      "candidate":"Dyplomant",
       "type" : "Rodzaj",
       "year" : "Rok",
       "field" : "Kierunek",
@@ -35,12 +37,13 @@
       "english" : "Angielski"
     },
     "status" : {
-      "DONE" : "Zakończona",
+      "DONE" : "Zrealizowana",
       "ASSIGNED" : "Przypisana",
       "TO_ACCEPT" : "Do akceptacji",
       "REGISTERED" : "Dostępna",
       "unavailable": "Niedostępna",
-      "reserve": "Rezerwuj"
+      "reserve": "Rezerwuj",
+      "modify": "Modyfikuj"
     }
   },
   "reviewer": {
