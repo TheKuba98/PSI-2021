@@ -14,6 +14,7 @@ import { ThesisService } from 'src/app/services/thesis.service';
 export class MyThesisListComponent implements OnInit {
 
   loading:boolean=false;
+  loadingFilters:boolean=false;
   theses: ThesisDto[];
   filterOptions:FilterOptionsDto;
   username: string;
@@ -23,6 +24,7 @@ export class MyThesisListComponent implements OnInit {
   showStudentStuff: boolean = false;
   showEmployeeStuff: boolean = false;
   showRepresentativeStuff: boolean = false;
+  
 
   thema:string="";
   supervisor:string="";
@@ -30,29 +32,63 @@ export class MyThesisListComponent implements OnInit {
   year:string="";
   field:string="";
   language:string="";
+  coauthor:string="";
 
-  displayedColumns:string[] =  ['theme','supervisor','type','year','field', 'language', 'status'];
+  displayedColumns:string[];
 
   constructor(
     private thesisService:ThesisService,
     private authService:AuthService
   ) { }
 
+  acceptThesis(thesisId: number){
+    this.loading=true;
+    this.thesisService.markThesisAsAssigned(thesisId).subscribe(response=>{
+      console.log(response);
+      this.getAllFilteredThesis();
+    });
+
+  }
+
+  rejectThesis(thesisId: number){
+    this.loading=true;
+    this.thesisService.markThesisAsRegistered(thesisId).subscribe(response=>{
+      console.log(response);
+      this.getAllFilteredThesis();
+    });
+  }
+
+  markAsCompleted(thesisId: number){
+    this.loading=true;
+    this.thesisService.markThesisAsCompleted(thesisId).subscribe(response=>{
+      console.log(response);
+      this.getAllFilteredThesis();
+    });
+
+  }
+
   modifyThesis(thesisId: number){
     console.log("Modified!")
   }
 
-  filter(){
-    const searchCriteria={
-      theme: this.thema,
-      supervisor: this.supervisor,
-      type: this.type,
-      year: this.year,
-      fieldName: this.field,
-      language: this.language
+  asignCoauthor(thesisId: number){
+    console.log(this.coauthor);
+    this.loading=true;
+    this.thesisService.assignAnotherStudentToThesis(this.coauthor, thesisId).subscribe(
+      (response)=>{
+      console.log(response);
+      this.getAllFilteredThesis();
+    },
+    (error) => {
+      console.error('Jakis modal?')
+      // this.errorMessage = error;
+      this.getAllFilteredThesis();
     }
+    );
+  }
 
-    this.fetchAllMyFilteredTheses(searchCriteria);
+  filter(){
+    this.getAllFilteredThesis();
   }
 
   clearFilters(){
@@ -62,6 +98,18 @@ export class MyThesisListComponent implements OnInit {
     this.year="";
     this.field="";
     this.language="";
+  }
+
+  getAllFilteredThesis(){
+    const searchCriteria={
+      theme: this.thema,
+      supervisor: this.supervisor,
+      type: this.type,
+      year: this.year,
+      fieldName: this.field,
+      language: this.language
+    }
+    this.fetchAllMyFilteredTheses(searchCriteria);
   }
 
   fetchAllAvailableFilteredTheses(thesisSearchDto:ThesisSearchDto){
@@ -75,8 +123,8 @@ export class MyThesisListComponent implements OnInit {
   }
 
   fetchfilterOptions(){
-    this.loading=true;
-    this.thesisService.getFilterOptions().subscribe(response=>{this.filterOptions = response;this.loading=false;console.log(response)});
+    this.loadingFilters=true;
+    this.thesisService.getFilterOptions().subscribe(response=>{this.filterOptions = response;this.loading=false;this.loadingFilters=false;console.log(response)});
   }
   
   fetchAllMyFilteredTheses(thesisSearchDto:ThesisSearchDto){
@@ -85,16 +133,8 @@ export class MyThesisListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const searchCriteria={
-      theme: this.thema,
-      supervisor: this.supervisor,
-      type: this.type,
-      year: this.year,
-      fieldName: this.field,
-      language: this.language
-    }
     this.fetchfilterOptions();
-    this.fetchAllMyFilteredTheses(searchCriteria);
+    this.getAllFilteredThesis();
 
     this.authService.user.subscribe(response => {
       if (response !== null) {
@@ -113,6 +153,10 @@ export class MyThesisListComponent implements OnInit {
       this.showEmployeeStuff = this.roles  ? this.roles.includes('ROLE_EMPLOYEE') : false;
       this.showRepresentativeStuff = this.roles  ? this.roles.includes('ROLE_REPRESENTATIVE') : false;
     });
+    this.displayedColumns = this.showStudentStuff ? 
+    ['theme','person', 'authors', 'type','year','field', 'language', 'status']
+    :
+    ['theme','person','type','year','field', 'language', 'status'];
   }
 
 }

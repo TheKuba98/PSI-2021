@@ -18,13 +18,19 @@ import java.util.Objects;
 public class User {
     @Id
     private String username;
+
     private String password;
+
     private boolean active;
+
     private String roles;
+
     @Column(name = "first_name")
     private String firstName;
+
     @Column(name = "last_name")
     private String lastName;
+
     @Column(name = "birth_date")
     private LocalDate birthDate;
 

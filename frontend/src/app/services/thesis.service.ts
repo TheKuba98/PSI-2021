@@ -26,7 +26,27 @@ export class ThesisService {
       return this.httpClient.get<FilterOptionsDto>('http://localhost:8080/api/filter-options');
     }
     
-    getMyFilteredTheses(thesisSearchDto:ThesisSearchDto):Observable<ThesisDto[]>{
+    getMyFilteredTheses(thesisSearchDto:ThesisSearchDto):Observable<ThesisDto[]> {
       return this.httpClient.post<ThesisDto[]>('http://localhost:8080/api/my-theses',thesisSearchDto);
+    }
+
+    assignFirstStudentToThesis(thesisId:number):Observable<ThesisDto> {
+      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/theses/'+ thesisId+'/assign', null);
+    }
+
+    assignAnotherStudentToThesis(username:string, thesisId:number):Observable<ThesisDto> {
+      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/theses/'+ thesisId+'/assign?username='+ username, null);
+    }
+
+    markThesisAsCompleted(thesisId:number):Observable<ThesisDto> {
+      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/theses/'+ thesisId+'/complete', null);
+    }
+
+    markThesisAsAssigned(thesisId:number):Observable<ThesisDto> {
+      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/theses/'+ thesisId+'/accept', null);
+    }
+
+    markThesisAsRegistered(thesisId:number):Observable<ThesisDto> {
+      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/theses/'+ thesisId+'/reject', null);
     }
 }

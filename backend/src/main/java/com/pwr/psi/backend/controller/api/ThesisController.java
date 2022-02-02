@@ -1,5 +1,6 @@
 package com.pwr.psi.backend.controller.api;
 
+import com.pwr.psi.backend.exception.*;
 import com.pwr.psi.backend.model.dto.FilterOptionsDto;
 import com.pwr.psi.backend.model.dto.ThesisDto;
 import com.pwr.psi.backend.model.dto.ThesisSearchDto;
@@ -20,19 +21,25 @@ public interface ThesisController {
 
     @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE') or hasRole('REPRESENTATIVE')")
     @PostMapping("/my-theses")
-    ResponseEntity<List<ThesisDto>> findMyFilteredTheses(@RequestBody ThesisSearchDto thesisSearchDto, Principal principal);
+    ResponseEntity<List<ThesisDto>> findMyFilteredTheses(@RequestBody ThesisSearchDto thesisSearchDto, Principal principal) throws UserNotFoundException;
 
     @PreAuthorize("hasRole('STUDENT')")
-    @PostMapping("/theses/{id}/assign")
-    ResponseEntity<ThesisDto> assignThesis(@PathVariable int id);
+    @PostMapping("/theses/{id}/assign" )
+    ResponseEntity<ThesisDto> assignThesis(@RequestParam(required = false) String username,
+                                           @PathVariable int id,
+                                           Principal principal) throws ThesisNotFoundException, UserNotFoundException, StudentAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException;
 
-//    @PreAuthorize("hasRole('EMPLOYEE')")
-//    @PostMapping("/theses/{id}/accept")
-//    ResponseEntity<ThesisDto> acceptStudent(@PathVariable int id);
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @PostMapping("/theses/{id}/complete")
+    ResponseEntity<ThesisDto> markThesisAsDone(@PathVariable int id) throws ThesisNotFoundException, ThesisNotAvailableException;
 
-//    @PreAuthorize("hasRole('EMPLOYEE')")
-//    @PostMapping("/theses/{id}/decline")
-//    ResponseEntity<ThesisDto> declineStudent(@PathVariable int id);
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @PostMapping("/theses/{id}/accept")
+    ResponseEntity<ThesisDto> markThesisAsAssigned(@PathVariable int id) throws ThesisNotFoundException, ThesisNotAvailableException;
+
+    @PreAuthorize("hasRole('EMPLOYEE')")
+    @PostMapping("/theses/{id}/reject")
+    ResponseEntity<ThesisDto> markThesisAsRegistered(@PathVariable int id) throws ThesisNotFoundException, ThesisNotAvailableException;
 
 //    @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE')")
 //    @PostMapping("/theses")

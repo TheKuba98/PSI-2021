@@ -17,4 +17,6 @@ public class ThesisDto {
     private String language;
     private String status;
     private List<UserDto> authors;
+    private int thesisId;
+    private String reporter;
 }

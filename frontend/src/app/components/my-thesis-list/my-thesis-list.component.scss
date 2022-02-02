@@ -58,28 +58,62 @@
 
   .unavailable-button {
       pointer-events: none;
-      width: 8rem;
+      width: 13rem;
     //   cursor: not-allowed;
   }
 
   .available-button {
     background-color: #2e7d32;
     color: white;
-    width: 8rem;
+    width: 13rem;
   }
 
   .wait-button {
-    background-color: #e65100;
+    background-color: #ff9100;
     color: white;
     pointer-events: none;
-    width: 8rem;
+    width: 13rem;
+  }
+
+  .accept-button {
+    background-color: #2e7d32;
+    color: white;
+    width: 6rem;
+    text-align: center;
+    margin-right:0.5rem;
+  }
+
+  .reject-button {
+    color: white;
+    width: 6rem;
+    text-align: center;
+    margin-left:0.5rem;
   }
 
   .action-column {
     text-align: center;
   }
 
+  // .to-accept-field{
+  // }
+
   .primary-button {
-    width: 8rem;
+    width: 13rem;
     pointer-events: none;
+  }
+  .add-exp{
+    max-width: 8rem;
+    box-shadow: none;
+    background-color: whitesmoke;
+  
+  }
+
+  .exp-input{
+    max-width:6rem;
+  }
+
+  .exp-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }

@@ -33,6 +33,7 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatRippleModule} from '@angular/material/core';
 import { MyThesisListComponent } from './components/my-thesis-list/my-thesis-list.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -71,6 +72,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatTabsModule,
     MatSelectModule,
     MatRippleModule,
+    MatExpansionModule,
+    
     FormsModule,
     TranslateModule.forRoot({
       loader: {

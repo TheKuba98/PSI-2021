@@ -1,10 +1,11 @@
 package com.pwr.psi.backend.controller.impl;
 
+import com.pwr.psi.backend.exception.*;
 import com.pwr.psi.backend.controller.api.ThesisController;
 import com.pwr.psi.backend.model.dto.FilterOptionsDto;
 import com.pwr.psi.backend.model.dto.ThesisDto;
 import com.pwr.psi.backend.model.dto.ThesisSearchDto;
-import com.pwr.psi.backend.service.ThesisService;
+import com.pwr.psi.backend.service.api.ThesisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,13 +25,28 @@ public class ThesisControllerImpl implements ThesisController {
     }
 
     @Override
-    public ResponseEntity<List<ThesisDto>> findMyFilteredTheses(ThesisSearchDto thesisSearchDto, Principal principal) {
+    public ResponseEntity<List<ThesisDto>> findMyFilteredTheses(ThesisSearchDto thesisSearchDto, Principal principal) throws UserNotFoundException {
         return ResponseEntity.ok(thesisService.findMyFilteredThesesBasedOnUserRole(thesisSearchDto, principal.getName()));
     }
 
     @Override
-    public ResponseEntity<ThesisDto> assignThesis(int id) {
-        return null;
+    public ResponseEntity<ThesisDto> assignThesis(String username, int id, Principal principal) throws ThesisNotFoundException, UserNotFoundException, StudentAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException {
+        return ResponseEntity.ok(thesisService.assignThesisToStudent(username, id, principal.getName()));
+    }
+
+    @Override
+    public ResponseEntity<ThesisDto> markThesisAsDone(int id) throws ThesisNotFoundException, ThesisNotAvailableException {
+        return ResponseEntity.ok(thesisService.markThesisAsDone(id));
+    }
+
+    @Override
+    public ResponseEntity<ThesisDto> markThesisAsAssigned(int id) throws ThesisNotFoundException, ThesisNotAvailableException {
+        return ResponseEntity.ok(thesisService.markThesisAsAssigned(id));
+    }
+
+    @Override
+    public ResponseEntity<ThesisDto> markThesisAsRegistered(int id) throws ThesisNotFoundException, ThesisNotAvailableException {
+        return ResponseEntity.ok(thesisService.markThesisAsRegistered(id));
     }
 
     @Override

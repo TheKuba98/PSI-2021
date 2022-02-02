@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -17,6 +18,10 @@ public class ThesisMapper {
 
     public ThesisDto thesisToThesisDTO(Thesis thesis){
         String supervisorNames = thesis.getSupervisor().getFirstName() + " " + thesis.getSupervisor().getLastName();
+        String reporter = Objects.isNull(thesis.getThesisDetails().getStudent())
+                ? null
+                : thesis.getThesisDetails().getStudent().getUsername();
+
         return new ThesisDto(thesis.getThesisDetails().getThema(),
                              thesis.getSupervisor().getUsername(),
                              supervisorNames,
@@ -25,7 +30,9 @@ public class ThesisMapper {
                              thesis.getThesisDetails().getField().getName(),
                              thesis.getThesisDetails().getLanguage(),
                              thesis.getThesisStatus().toString(),
-                        userMapper.studentListToUserDtoList(List.copyOf(thesis.getAuthors())));
+                             userMapper.studentListToUserDtoList(List.copyOf(thesis.getAuthors())),
+                             thesis.getThesisId(),
+                             reporter);
     }
 
     public List<ThesisDto> thesisListToThesisDtoList(List<Thesis> thesisList){

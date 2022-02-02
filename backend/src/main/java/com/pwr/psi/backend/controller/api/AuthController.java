@@ -2,7 +2,7 @@ package com.pwr.psi.backend.controller.api;
 
 import com.pwr.psi.backend.model.dto.UserDto;
 import com.pwr.psi.backend.model.dto.UserForm;
-import com.pwr.psi.backend.controller.UserNotFoundException;
+import com.pwr.psi.backend.exception.UserNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

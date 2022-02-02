@@ -13,6 +13,7 @@ import { ThesisService } from 'src/app/services/thesis.service';
 export class ThesisListComponent implements OnInit {
 
   loading:boolean=false;
+  loadingFilters:boolean=false;
   theses: ThesisDto[];
   filterOptions:FilterOptionsDto;
 
@@ -31,6 +32,11 @@ export class ThesisListComponent implements OnInit {
 
   reserveThesis(thesisId: number){
     console.log("Reserved!")
+    this.thesisService.assignFirstStudentToThesis(thesisId).subscribe(response=>{
+      console.log(response);
+      this.loading=false;
+      this.fetchAllAvailableTheses();
+    });
   }
 
   filter(){
@@ -66,10 +72,9 @@ export class ThesisListComponent implements OnInit {
   }
 
   fetchfilterOptions(){
-    this.loading=true;
-    this.thesisService.getFilterOptions().subscribe(response=>{this.filterOptions = response;this.loading=false;console.log(response)});
+    this.loadingFilters=true;
+    this.thesisService.getFilterOptions().subscribe(response=>{this.filterOptions = response;this.loadingFilters=false;console.log(response)});
   }
-
 
   ngOnInit(): void {
     this.fetchAllAvailableTheses();

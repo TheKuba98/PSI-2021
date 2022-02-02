@@ -47,7 +47,7 @@
           <button (click)="setLanguage('en')" mat-menu-item>{{'language.english' | translate}}</button>
           <button (click)="setLanguage('pl')" mat-menu-item>{{'language.polish' | translate}}</button>
         </mat-menu>
-        <button class="accountMenu" mat-button [matMenuTriggerFor]="accMenu">
+        <button *ngIf="userInfo" class="accountMenu" mat-button [matMenuTriggerFor]="accMenu">
           <mat-icon>account_circle</mat-icon>
           {{firstName}} {{lastName}}
           <mat-icon>keyboard_arrow_down</mat-icon>

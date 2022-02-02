@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -39,8 +40,11 @@ public class Thesis {
     @NotNull
     private boolean sharedWork;
 
-    @Column()
+    @Column
     private boolean reserved;
+
+    @Column(name= "registered_by_student")
+    private boolean registeredByStudent;
 
     @Column(name = "thesis_status")
     @NotNull
@@ -63,5 +67,16 @@ public class Thesis {
 
     @OneToOne(mappedBy = "thesis")
     private ThesisDetails thesisDetails;
+
+    public void addAuthor(Student student) {
+        if (authors == null) {
+            authors = new HashSet<>();
+        }
+        authors.add(student);
+    }
+
+    public void removeAuthor(Student student) {
+        authors.remove(student);
+    }
 }
 

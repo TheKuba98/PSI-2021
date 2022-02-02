@@ -33,14 +33,15 @@ CREATE TABLE share
 );
 CREATE TABLE thesis
 (
-    asap_date       date,
-    document_format varchar(255) NOT NULL,
-    entering_date   date,
-    shared_work     bit(1)       NOT NULL,
-    reserved        bit(1),
-    thesis_status   varchar(255) NOT NULL,
-    username        varchar(255),
-    thesis_id       int(10)      NOT NULL AUTO_INCREMENT,
+    asap_date             date,
+    document_format       varchar(255) NOT NULL,
+    entering_date         date,
+    shared_work           bit(1)       NOT NULL,
+    reserved              bit(1)       NOT NULL,
+    registered_by_student bit(1)        NOT NULL,
+    thesis_status         varchar(255) NOT NULL,
+    username              varchar(255),
+    thesis_id             int(10)      NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (thesis_id)
 );
 

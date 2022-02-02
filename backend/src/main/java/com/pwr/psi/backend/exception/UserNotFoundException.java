@@ -1,4 +1,4 @@
-package com.pwr.psi.backend.controller;
+package com.pwr.psi.backend.exception;
 
 public class UserNotFoundException extends Exception{
     public UserNotFoundException(String message) {

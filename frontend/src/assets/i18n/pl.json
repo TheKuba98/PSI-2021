@@ -25,7 +25,11 @@
       "year" : "Rok",
       "field" : "Kierunek",
       "filter" : "Filtruj",
-      "assign" : "Rezerwuj"
+      "assign" : "Rezerwuj",
+      "state" : "Stan",
+      "addCoauthor":"Dodaj współautora",
+      "add":"Dodaj",
+      "coauthor":"Współautor"
     },
     "type" : {
       "MASTERS" : "Magisterska",
@@ -43,7 +47,10 @@
       "REGISTERED" : "Dostępna",
       "unavailable": "Niedostępna",
       "reserve": "Rezerwuj",
-      "modify": "Modyfikuj"
+      "modify": "Modyfikuj",
+      "markCompleted": "Oznacz jako ukończoną",
+      "accept":"Akceptuj",
+      "reject":"Odrzuć"
     }
   },
   "reviewer": {

@@ -25,7 +25,11 @@
       "year" : "Year",
       "field" : "Field",
       "filter" : "Filter",
-      "assign" : "Assign"
+      "assign" : "Assign",
+      "state" : "State",
+      "addCoauthor":"Add coauthor",
+      "add":"Add",
+      "coauthor":"Coauthor"
     },
     "type" : {
       "MASTERS" : "Master",
@@ -43,7 +47,10 @@
       "REGISTERED" : "Available",
       "unavailable": "Unavailable",
       "reserve": "Reserve",
-      "modify": "Modify"
+      "modify": "Modify",
+      "markCompleted": "Mark as completed",
+      "accept":"Accept",
+      "reject":"Reject"
     }
   },
   "reviewer": {
