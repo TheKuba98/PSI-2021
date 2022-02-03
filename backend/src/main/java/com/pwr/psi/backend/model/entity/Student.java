@@ -19,7 +19,7 @@ public class Student extends User {
     @Column(name = "index_number")
     private String indexNumber;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "students")
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL,mappedBy = "students")
     Set<Field> field;
 
     @ManyToMany(fetch = FetchType.EAGER,mappedBy = "authors")

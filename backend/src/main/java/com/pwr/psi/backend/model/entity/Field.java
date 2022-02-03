@@ -28,6 +28,10 @@ public class Field {
     @NotNull
     private String degree;
 
+    @Column
+    @NotNull
+    private String faculty;
+
     @Column(name = "thesis_workload")
     @NotNull
     private int thesisWorkload;
