@@ -49,4 +49,15 @@ public class StudentDto {
     public void setFields(List<FieldDto> fields) {
         this.fields = fields;
     }
+
+    @Override
+    public String toString() {
+        return "StudentDto{" +
+                "indexNumber='" + indexNumber + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", fields=" + fields +
+                '}';
+    }
 }
