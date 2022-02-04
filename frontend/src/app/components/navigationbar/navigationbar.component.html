@@ -31,10 +31,10 @@
       <div class="nav-links">
         <span class="nav-link" [routerLink]="'my-theses'" *ngIf="showStudentStuff">{{'assignment.my' | translate}}</span>
         <span class="nav-link" [routerLink]="'theses'" *ngIf="showStudentStuff">{{'assignment.find' | translate}}</span>
-        <span class="nav-link" *ngIf="showStudentStuff">{{'thesis.submit' | translate}}</span>
+        <span class="nav-link" [routerLink]="'add-thesis'" *ngIf="showStudentStuff">{{'thesis.submit' | translate}}</span>
 
         <span class="nav-link" [routerLink]="'my-theses'" *ngIf="showEmployeeStuff">{{'assignment.my' | translate}}</span>
-        <span class="nav-link" *ngIf="showEmployeeStuff">{{'thesis.submit' | translate}}</span>
+        <span class="nav-link" [routerLink]="'add-thesis'"*ngIf="showEmployeeStuff">{{'thesis.submit' | translate}}</span>
 
         <span class="nav-link" *ngIf="showRepresentativeStuff">{{'reviewer.assign' | translate}}</span>
       </div>

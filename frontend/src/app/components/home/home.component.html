@@ -16,7 +16,7 @@
         {{'assignment.find' | translate}}
       </div>
     </button>
-    <button *ngIf="showStudentStuff" class="menu-button">
+    <button *ngIf="showStudentStuff" class="menu-button" [routerLink]="'add-thesis'">
       <div class="button-conent">
         <mat-icon>note_add</mat-icon>
         <div class="vl"></div>
@@ -31,7 +31,7 @@
         {{'assignment.my' | translate}}
       </div>
     </button>
-    <button *ngIf="showEmployeeStuff" class="menu-button">
+    <button *ngIf="showEmployeeStuff" class="menu-button" [routerLink]="'add-thesis'">
       <div class="button-conent">
         <mat-icon>note_add</mat-icon>
         <div class="vl"></div>

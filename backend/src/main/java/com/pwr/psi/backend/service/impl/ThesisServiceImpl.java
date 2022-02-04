@@ -7,6 +7,7 @@ import com.pwr.psi.backend.model.dto.ThesisSearchDto;
 import com.pwr.psi.backend.model.dto.UserDto;
 import com.pwr.psi.backend.model.entity.*;
 import com.pwr.psi.backend.model.enums.ThesisStatus;
+import com.pwr.psi.backend.model.enums.ThesisType;
 import com.pwr.psi.backend.repository.*;
 import com.pwr.psi.backend.service.api.ThesisService;
 import com.pwr.psi.backend.service.mapper.ThesisMapper;
@@ -94,7 +95,6 @@ public class ThesisServiceImpl implements ThesisService {
 
     public FilterOptionsDto getFilterOptions() {
         List<UniversityEmployee> universityEmployees = universityEmployeeRepository.findAll();
-        List<ThesisDetails> thesisDetails = thesisDetailsRepository.findAll();
         List<Field> fields = fieldRepository.findAll();
 
         List<UserDto> supervisors = universityEmployees.stream()
@@ -102,9 +102,8 @@ public class ThesisServiceImpl implements ThesisService {
                 .sorted(Comparator.comparing(UserDto::getLastName))
                 .collect(Collectors.toList());
 
-        List<String> thesisTypes = thesisDetails.stream()
-                .map(elem -> elem.getThesisType().toString())
-                .distinct()
+        List<String> thesisTypes = ThesisType.getAllThesisTypes().stream()
+                .map(Enum::toString)
                 .sorted()
                 .collect(Collectors.toList());
 
@@ -120,11 +119,7 @@ public class ThesisServiceImpl implements ThesisService {
                 .sorted()
                 .collect(Collectors.toList());
 
-        List<String> languages = thesisDetails.stream()
-                .map(ThesisDetails::getLanguage)
-                .distinct()
-                .sorted()
-                .collect(Collectors.toList());
+        List<String> languages = List.of("polish", "english");
 
         return new FilterOptionsDto(supervisors, thesisTypes, years, fieldNames, languages);
     }

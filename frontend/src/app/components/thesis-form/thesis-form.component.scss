@@ -1,0 +1,74 @@
+.add-thesis-title {
+    width: 100%;
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    // height: 50%;
+    // width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    margin: 3rem;
+    padding: 3rem;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+
+.inputs-container {
+    width: 100%;
+    margin-top: 2rem;
+    // background-color: white;
+    // padding: 2rem;
+    // border-radius: 5px;    
+}
+.thesis-form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.subject-input {
+    width: 70%;
+    min-width: 300px;
+    margin-top: 1rem;
+}
+
+.supervisor-input {
+    min-width: 300px;
+    width: 30%;
+    margin-top: 1rem;
+}
+
+.bottom-inputs{
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.available-button {
+    background-color: #2e7d32;
+    color: white;
+    width: 10rem;
+    margin-left: 1rem;
+}
+
+.spinner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+  }
+
+// .submit-buttons{
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+// }  

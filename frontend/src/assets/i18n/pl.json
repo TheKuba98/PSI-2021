@@ -1,4 +1,7 @@
 {
+  "common":{
+    "cancel":"Anuluj"
+  },
   "language" : {
     "label" : "Język",
     "polish" : "Polski",
@@ -17,6 +20,7 @@
     "avaliable" : "Dostępne prace",
     "my" : "Moje prace",
     "submit" : "Zgłoś temat",
+    "declareSubject": "Zgłoś temat",
     "list" : {
       "topic" : "Temat",
       "supervisor" : "Opiekun",
@@ -30,6 +34,14 @@
       "addCoauthor":"Dodaj współautora",
       "add":"Dodaj",
       "coauthor":"Współautor"
+    },
+    "form":{
+      "topicRequired":"Temat pracy jest wymagany",
+      "supervisorRequired":"Opiekun pracy jest wymagany",
+      "typeRequired":"Rodzaj pracy jest wymagany",
+      "yearRequired":"Rok jest wymagany",
+      "fieldRequired":"Kierunek jest wymagany",
+      "languageRequired":"Język jest wymagany"
     },
     "type" : {
       "MASTERS" : "Magisterska",

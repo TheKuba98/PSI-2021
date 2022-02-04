@@ -1,4 +1,7 @@
 {
+  "common":{
+    "cancel":"Cancel"
+  },
   "language" : {
     "label" : "Language",
     "polish" : "Polish",
@@ -17,6 +20,7 @@
     "avaliable" : "Avaliable theses",
     "my" : "My theses",
     "submit" : "Submit subject",
+    "declareSubject": "Declare a subject",
     "list" : {
       "topic" : "Topic",
       "supervisor" : "Supervisor",
@@ -30,6 +34,14 @@
       "addCoauthor":"Add coauthor",
       "add":"Add",
       "coauthor":"Coauthor"
+    },
+    "form":{
+      "topicRequired":"Thesis topic is required",
+      "supervisorRequired":"Thesis supervisor is required",
+      "typeRequired":"Thesis type is required",
+      "yearRequired":"Year is required",
+      "fieldRequired":"Field is required",
+      "languageRequired":"Language is required"
     },
     "type" : {
       "MASTERS" : "Master",

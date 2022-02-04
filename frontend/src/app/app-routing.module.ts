@@ -9,6 +9,7 @@ import { EventFormComponent } from './componOld/event-form/event-form.component'
 import { EventDetailsComponent } from './componOld/event-details/event-details.component';
 import { ThesisListComponent } from './components/thesis-list/thesis-list.component';
 import { MyThesisListComponent } from './components/my-thesis-list/my-thesis-list.component';
+import { ThesisFormComponent } from './components/thesis-form/thesis-form.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: 'facilities-form', component:FacilitiesFormComponent},
   { path: 'event-form', component:EventFormComponent},
   { path: 'event-details/:id', component:EventDetailsComponent},
+  { path: 'add-thesis/:id', component:ThesisFormComponent},
+  { path: 'add-thesis', component:ThesisFormComponent},
 
   //otherwise redirect to home
   { path: '**', redirectTo: '' }

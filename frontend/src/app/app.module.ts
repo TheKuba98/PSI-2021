@@ -34,6 +34,7 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {MatRippleModule} from '@angular/material/core';
 import { MyThesisListComponent } from './components/my-thesis-list/my-thesis-list.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ThesisFormComponent } from './components/thesis-form/thesis-form.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -51,7 +52,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventFormComponent,
     EventDetailsComponent,
     ThesisListComponent,
-    MyThesisListComponent
+    MyThesisListComponent,
+    ThesisFormComponent
   ],
   imports: [
     BrowserModule,
