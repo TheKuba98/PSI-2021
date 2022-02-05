@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FilterOptionsDto } from '../model/dto/filterOptionsDto';
 import { ThesisDto } from '../model/dto/thesisDto';
+import { ThesisFormDto } from '../model/dto/thesisFormDto';
 import { ThesisSearchDto } from '../model/dto/thesisSearchDto';
 
 @Injectable({
@@ -48,5 +49,13 @@ export class ThesisService {
 
     markThesisAsRegistered(thesisId:number):Observable<ThesisDto> {
       return this.httpClient.post<ThesisDto>('http://localhost:8080/api/theses/'+ thesisId+'/reject', null);
+    }
+
+    addThesis(arena:ThesisFormDto):Observable<ThesisDto>{
+      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/add-thesis', arena);
+    }
+
+    getAvailableThesisById(id:number):Observable<ThesisDto>{
+      return this.httpClient.get<ThesisDto>('http://localhost:8080/api/theses/'+id);
     }
 }

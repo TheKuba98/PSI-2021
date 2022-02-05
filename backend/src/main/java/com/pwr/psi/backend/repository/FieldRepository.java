@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface FieldRepository extends JpaRepository<Field, Integer> {
     Optional<Field> findByNameAndDegreeAndEducationCycleAndFaculty(String name, String degree, String educationCycle, String faculty);
+
+    Optional<Field> findByDegreeAndEducationCycleAndName(String degree, String educationalCycle, String name);
 }

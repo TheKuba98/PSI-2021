@@ -1,11 +1,9 @@
 package com.pwr.psi.backend.service.impl;
 
 import com.pwr.psi.backend.exception.*;
-import com.pwr.psi.backend.model.dto.FilterOptionsDto;
-import com.pwr.psi.backend.model.dto.ThesisDto;
-import com.pwr.psi.backend.model.dto.ThesisSearchDto;
-import com.pwr.psi.backend.model.dto.UserDto;
+import com.pwr.psi.backend.model.dto.*;
 import com.pwr.psi.backend.model.entity.*;
+import com.pwr.psi.backend.model.enums.DocumentFormat;
 import com.pwr.psi.backend.model.enums.ThesisStatus;
 import com.pwr.psi.backend.model.enums.ThesisType;
 import com.pwr.psi.backend.repository.*;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -30,8 +27,18 @@ public class ThesisServiceImpl implements ThesisService {
     public static final String AUTHORS_LIMIT_REACHED_MESSAGE = "Maximum limit of authors in thesis is already reached";
     public static final String THESIS_NOT_FOUND_MESSAGE = "Thesis with this id does not exist";
     public static final String USER_NOT_FOUND_MESSAGE = "User with this login does not exist";
+    public static final String FIELD_NOT_FOUND_MESSAGE = "Field with following name, type, and year does not exist";
+    public static final String ROLE_STUDENT = "ROLE_STUDENT";
+    public static final String ROLE_EMPLOYEE = "ROLE_EMPLOYEE";
     private static final int MAX_STUDENTS_NUMBER_ASSIGNED_TO_THESIS = 4;
+    private static final int FIRST_DEGREE_THESIS_WORKLOAD = 5;
+    private static final int SECOND_DEGREE_THESIS_WORKLOAD = 10;
     public static final int NO_AUTHORS = 0;
+    public static final boolean NOT_RESERVED = false;
+    public static final boolean NOT_REGISTERED_BY_STUDENT = false;
+    public static final boolean NOT_SHARED_WORK = false;
+    public static final boolean REGISTERED_BY_STUDENT = true;
+    public static final String THESIS_WORKLOAD_LIMIT_REACHED_MESSAGE = "Thesis workload limit has been reached";
 
     private final ThesisRepository thesisRepository;
     private final ThesisDetailsRepository thesisDetailsRepository;
@@ -44,22 +51,22 @@ public class ThesisServiceImpl implements ThesisService {
 
 
     public List<ThesisDto> findAllAvailableTheses() {
-        return thesisMapper.thesisListToThesisDtoList(thesisRepository.findAll());
+        return thesisMapper.thesisListToThesisDtoList(thesisRepository.findAllByRegisteredByStudent(NOT_REGISTERED_BY_STUDENT));
     }
 
     public List<ThesisDto> findFilteredAvailableTheses(ThesisSearchDto thesisSearchDto) {
-        List<ThesisDto> thesisDtoList = thesisMapper.thesisListToThesisDtoList(thesisRepository.findAllBySupervisorNotNull());
+        List<ThesisDto> thesisDtoList = thesisMapper.thesisListToThesisDtoList(thesisRepository.findAllBySupervisorNotNullAndRegisteredByStudent(NOT_REGISTERED_BY_STUDENT));
         return filterTheses(thesisDtoList, thesisSearchDto);
     }
 
     public List<ThesisDto> findMyFilteredThesesBasedOnUserRole(ThesisSearchDto thesisSearchDto, String username) throws UserNotFoundException {
         User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
 
-        if (user.getRoles().contains("ROLE_STUDENT")) {
+        if (user.getRoles().contains(ROLE_STUDENT)) {
             return findMyThesesAsAuthor(thesisSearchDto, user);
         }
 
-        if (user.getRoles().contains("ROLE_EMPLOYEE")) {
+        if (user.getRoles().contains(ROLE_EMPLOYEE)) {
             return findMyThesesAsSupervisor(thesisSearchDto, user);
         }
 
@@ -185,8 +192,20 @@ public class ThesisServiceImpl implements ThesisService {
         }
     }
 
-    public ThesisDto markThesisAsAssigned(int id) throws ThesisNotFoundException, ThesisNotAvailableException {
+    public ThesisDto markThesisAsAssigned(int id) throws ThesisNotFoundException, ThesisNotAvailableException, ThesisWorkloadLimitReachedException {
         Thesis thesis = thesisRepository.findById(id).orElseThrow(() -> new ThesisNotFoundException(THESIS_NOT_FOUND_MESSAGE));
+
+        if (Objects.isNull(thesis.getSupervisor())) {
+            throw new ThesisNotAvailableException(THESIS_NOT_AVAILABLE_MESSAGE);
+        }
+
+        int currentWorkload = getCurrentWorkload(thesis.getSupervisor());
+        int thesisWorkload = getThesisWorkload(thesis);
+
+        if(thesis.getSupervisor().getThesisWorkloadLimit() < (currentWorkload+thesisWorkload)){
+            throw new ThesisWorkloadLimitReachedException(THESIS_WORKLOAD_LIMIT_REACHED_MESSAGE);
+        }
+
         if (thesis.getThesisStatus() == ThesisStatus.TO_ACCEPT) {
             thesis.setThesisStatus(ThesisStatus.ASSIGNED);
             return thesisMapper.thesisToThesisDTO(thesisRepository.save(thesis));
@@ -195,7 +214,15 @@ public class ThesisServiceImpl implements ThesisService {
         }
     }
 
-    @Override
+    private int getThesisWorkload(Thesis thesis) {
+        if (thesis.getThesisDetails().getField().getDegree().equals(ThesisType.BA.toString())
+                || thesis.getThesisDetails().getField().getDegree().equals(ThesisType.BSC.toString())) {
+            return FIRST_DEGREE_THESIS_WORKLOAD;
+        } else {
+            return SECOND_DEGREE_THESIS_WORKLOAD;
+        }
+    }
+
     public ThesisDto markThesisAsRegistered(int id) throws ThesisNotFoundException, ThesisNotAvailableException {
         Thesis thesis = thesisRepository.findById(id).orElseThrow(() -> new ThesisNotFoundException(THESIS_NOT_FOUND_MESSAGE));
         if (thesis.getThesisStatus() == ThesisStatus.TO_ACCEPT) {
@@ -208,10 +235,81 @@ public class ThesisServiceImpl implements ThesisService {
                 thesis.getAuthors().stream()
                         .filter(a -> !a.getUsername().equals(thesis.getThesisDetails().getStudent().getUsername()))
                         .forEach(thesis::removeAuthor);
+                thesis.setSupervisor(null);
             }
             return thesisMapper.thesisToThesisDTO(thesisRepository.save(thesis));
         } else {
             throw new ThesisNotAvailableException(THESIS_NOT_AVAILABLE_MESSAGE);
         }
+    }
+
+    public ThesisDto createThesis(ThesisForm thesisForm, String username) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
+        Field field = fieldRepository.findByDegreeAndEducationCycleAndName(thesisForm.getType(), thesisForm.getYear(), thesisForm.getField())
+                .orElseThrow(() -> new FieldNotFoundException(FIELD_NOT_FOUND_MESSAGE));
+
+        Thesis thesis = new Thesis();
+        ThesisDetails thesisDetails = new ThesisDetails();
+        thesisDetails.setLanguage(thesisForm.getLanguage());
+        thesisDetails.setThesisType(ThesisType.valueOf(thesisForm.getType()));
+        thesisDetails.setThema(thesisForm.getTheme());
+        thesisDetails.setField(field);
+
+        if (user.getRoles().contains(ROLE_EMPLOYEE)) {
+            UniversityEmployee universityEmployee = (UniversityEmployee) user;
+            thesis.setSupervisor(universityEmployee);
+            thesis.setRegisteredByStudent(NOT_REGISTERED_BY_STUDENT);
+            thesis.setThesisStatus(ThesisStatus.REGISTERED);
+        } else if (user.getRoles().contains(ROLE_STUDENT)) {
+            UniversityEmployee universityEmployee = (UniversityEmployee) universityEmployeeRepository.findByUsername(thesisForm.getSupervisor())
+                    .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
+            Student student = (Student) user;
+            thesisDetails.setStudent(student);
+            thesis.addAuthor(student);
+            thesis.setRegisteredByStudent(REGISTERED_BY_STUDENT);
+            thesis.setThesisStatus(ThesisStatus.TO_ACCEPT);
+            thesis.setSupervisor(universityEmployee);
+        } else {
+            throw new ThesisNotAvailableException(THESIS_NOT_AVAILABLE_MESSAGE);
+        }
+
+        thesis.setDocumentFormat(DocumentFormat.PDF);
+        thesis.setSharedWork(NOT_SHARED_WORK);
+        thesis.setReserved(NOT_RESERVED);
+        thesis.setThesisDetails(thesisDetails);
+        thesisDetails.setThesis(thesis);
+
+        return thesisMapper.thesisToThesisDTO(thesisRepository.save(thesis));
+    }
+
+    public ThesisDto findAvailableThesisById(int id, String name) throws ThesisNotFoundException, UserNotFoundException, ThesisNotAvailableException {
+        Thesis thesis = thesisRepository.findById(id).orElseThrow(() -> new ThesisNotFoundException(THESIS_NOT_FOUND_MESSAGE));
+        User user = userRepository.findByUsername(name).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
+        if (thesis.getAuthors().contains(user)) {
+            return thesisMapper.thesisToThesisDTO(thesis);
+        } else {
+            throw new ThesisNotAvailableException(THESIS_NOT_AVAILABLE_MESSAGE);
+        }
+    }
+
+    private int getCurrentWorkload(UniversityEmployee universityEmployee) {
+        List<String> thesesDegrees = universityEmployee.getThesis().stream()
+                .map(Thesis::getThesisDetails)
+                .filter(a->Objects.nonNull(a.getStudent()))
+                .filter(a->a.getThesis().getThesisStatus()==ThesisStatus.ASSIGNED)
+                .map(ThesisDetails::getField)
+                .map(Field::getDegree)
+                .collect(Collectors.toList());
+
+        List<String> thesisDetailsFirstDegree = thesesDegrees.stream().
+                filter(elem -> elem.equals(ThesisType.BA.toString()) || elem.equals(ThesisType.BSC.toString()))
+                .collect(Collectors.toList());
+        List<String> thesisDetailsSecondDegree = thesesDegrees.stream()
+                .filter(elem -> elem.equals(ThesisType.MASTERS.toString()))
+                .collect(Collectors.toList());
+
+        return (FIRST_DEGREE_THESIS_WORKLOAD * thesisDetailsFirstDegree.size())
+                + SECOND_DEGREE_THESIS_WORKLOAD * thesisDetailsSecondDegree.size();
     }
 }

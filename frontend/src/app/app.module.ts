@@ -35,6 +35,8 @@ import {MatRippleModule} from '@angular/material/core';
 import { MyThesisListComponent } from './components/my-thesis-list/my-thesis-list.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ThesisFormComponent } from './components/thesis-form/thesis-form.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ThesisUpdateComponent } from './components/thesis-update/thesis-update.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -53,7 +55,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventDetailsComponent,
     ThesisListComponent,
     MyThesisListComponent,
-    ThesisFormComponent
+    ThesisFormComponent,
+    ThesisUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +78,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     MatSelectModule,
     MatRippleModule,
     MatExpansionModule,
+    MatSnackBarModule,
     
     FormsModule,
     TranslateModule.forRoot({

@@ -15,6 +15,8 @@ public class ApiExceptionHandler {
     public static final String USER_NOT_FOUND_KEY = "userNotFound";
     public static final String THESIS_NOT_FOUND_KEY = "thesisNotFound";
     public static final String THESIS_NOT_AVAILABLE_KEY = "thesisNotAvailable";
+    public static final String FIELD_NOT_FOUND_KEY = "fieldNotFound";
+    public static final String WORKLOAD_REACHED_KEY = "workloadReached";
 
     @ExceptionHandler(value = StudentAlreadyAssignedException.class)
     public ResponseEntity<Object> handleStudentAlreadyAssignedException(StudentAlreadyAssignedException e) {
@@ -76,6 +78,28 @@ public class ApiExceptionHandler {
         ApiException apiException = new ApiException(
                 e.getMessage(),
                 THESIS_NOT_AVAILABLE_KEY,
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now());
+
+        return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = FieldNotFoundException.class)
+    public ResponseEntity<Object> handleFieldNotFoundException(FieldNotFoundException e) {
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                FIELD_NOT_FOUND_KEY,
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now());
+
+        return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = ThesisWorkloadLimitReachedException.class)
+    public ResponseEntity<Object> handleThesisWorkloadLimitReachedException(ThesisWorkloadLimitReachedException e) {
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                WORKLOAD_REACHED_KEY,
                 HttpStatus.BAD_REQUEST,
                 ZonedDateTime.now());
 

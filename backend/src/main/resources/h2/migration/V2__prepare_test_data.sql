@@ -9,9 +9,9 @@ VALUES ('Jakub', 'Test', date('1998-10-10'), 1, 'ROLE_STUDENT', '233331', '$2a$1
         null, 'ROLE_EMPLOYEE', 'TEACHING_STAFF', 'SENIOR_LECTURER', 'DOCTOR', 100 ,0);
 
 Insert into `field` (name, degree, faculty, thesis_workload, education_cycle)
-values ('Informatyka', 'Magister Inżynier', 'W8', 15, '2021'),
-       ('Inżynieria Systemów', 'Inżynier', 'W8', 12, '2022'),
-       ('Elektronika', 'Inżynier', 'W4', 10, '2023');
+values ('Informatyka', 'MASTERS', 'W8', 15, '2021'),
+       ('Inżynieria Systemów', 'BSC', 'W8', 12, '2022'),
+       ('Elektronika', 'BSC', 'W4', 10, '2023');
 
 Insert into `field_user` (field_id, username)
 values (1,'233331'),

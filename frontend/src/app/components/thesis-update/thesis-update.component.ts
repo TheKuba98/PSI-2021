@@ -10,12 +10,12 @@ import { ThesisFormDto } from 'src/app/model/dto/thesisFormDto';
 import { ThesisService } from 'src/app/services/thesis.service';
 
 @Component({
-  selector: 'app-thesis-form',
-  templateUrl: './thesis-form.component.html',
-  styleUrls: ['./thesis-form.component.scss']
+  selector: 'app-thesis-update',
+  templateUrl: './thesis-update.component.html',
+  styleUrls: ['./thesis-update.component.scss']
 })
-export class ThesisFormComponent implements OnInit {
-  
+export class ThesisUpdateComponent implements OnInit {
+
   submitted:boolean=false;
   loading:boolean=false;
   loadingFilters:boolean=false;
@@ -122,17 +122,12 @@ export class ThesisFormComponent implements OnInit {
 
     this.thesisForm = this.formBuilder.group({
       theme: ['',Validators.required],
-      supervisor: [''],
-      type: ['', Validators.required],
-      year: ['', Validators.required],
-      field: ['', Validators.required],
-      language: ['', Validators.required],
+      supervisor: ['', Validators.required],
+     
     });
-    if (this.showStudentStuff){
-      this.thesisForm.get('supervisor').setValidators(Validators.required);
-    }
-    
-    
+
+    const thesisId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.getAvailableThesisById(Number(thesisId));
   }
 
 }

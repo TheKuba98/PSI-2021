@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Table(name = "thesis_details")
 public class ThesisDetails {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "thesis_details_id")
     @NotNull
     private int thesisDetailsId;

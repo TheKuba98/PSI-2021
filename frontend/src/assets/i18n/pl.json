@@ -1,6 +1,8 @@
 {
   "common":{
-    "cancel":"Anuluj"
+    "cancel":"Anuluj",
+    "ok":"Ok",
+    "close":"Close"
   },
   "language" : {
     "label" : "Język",
@@ -41,7 +43,8 @@
       "typeRequired":"Rodzaj pracy jest wymagany",
       "yearRequired":"Rok jest wymagany",
       "fieldRequired":"Kierunek jest wymagany",
-      "languageRequired":"Język jest wymagany"
+      "languageRequired":"Język jest wymagany",
+      "addSuccess":"Praca zgłoszona pomyślnie"
     },
     "type" : {
       "MASTERS" : "Magisterska",

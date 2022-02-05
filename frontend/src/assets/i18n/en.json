@@ -1,6 +1,8 @@
 {
   "common":{
-    "cancel":"Cancel"
+    "cancel":"Cancel",
+    "ok":"Ok",
+    "close":"Close"
   },
   "language" : {
     "label" : "Language",
@@ -41,7 +43,8 @@
       "typeRequired":"Thesis type is required",
       "yearRequired":"Year is required",
       "fieldRequired":"Field is required",
-      "languageRequired":"Language is required"
+      "languageRequired":"Language is required",
+      "addSuccess":"Thesis added successfuly"
     },
     "type" : {
       "MASTERS" : "Master",

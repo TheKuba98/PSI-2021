@@ -21,6 +21,7 @@ import java.util.Set;
 public class Thesis {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "thesis_id")
     @NotNull
     private int thesisId;
@@ -65,7 +66,7 @@ public class Thesis {
     @OneToMany(mappedBy="thesis")
     private Set<Review> reviews;
 
-    @OneToOne(mappedBy = "thesis")
+    @OneToOne(mappedBy = "thesis", cascade = {CascadeType.ALL})
     private ThesisDetails thesisDetails;
 
     public void addAuthor(Student student) {

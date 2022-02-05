@@ -11,9 +11,11 @@ import java.util.List;
 @Repository
 public interface ThesisRepository extends JpaRepository<Thesis, Integer> {
 
-    List<Thesis> findAllBySupervisorNotNull();
+    List<Thesis> findAllBySupervisorNotNullAndRegisteredByStudent(boolean registeredByStudent);
 
     List<Thesis> findAllBySupervisorEquals(UniversityEmployee user);
 
     List<Thesis> findAllByAuthorsContains(Student user);
+
+    List<Thesis> findAllByRegisteredByStudent(boolean registeredByStudent);
 }

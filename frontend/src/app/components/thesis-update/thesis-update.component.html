@@ -19,7 +19,7 @@
             </div>
                 <mat-form-field appearance="outline" class="subject-input">
                   <mat-label>{{'thesis.list.topic' | translate}}</mat-label>
-                  <input type="text" matInput formControlName="theme">
+                  <input type="text" matInput formControlName="theme" >
                   <mat-error *ngIf="theme.hasError('required')">
                     {{'thesis.form.topicRequired' | translate}}
                   </mat-error>
@@ -39,41 +39,19 @@
                   <div class="bottom-inputs">
                     <mat-form-field appearance="outline" class="bottom-field">
                         <mat-label>{{'thesis.list.type' | translate}}</mat-label>
-                        <mat-select formControlName="type" [ngModelOptions]="{standalone: true}">
-                            <mat-option *ngFor="let type of filterOptions.thesisTypes" [value]="type">{{'thesis.type.'+type | translate}}</mat-option>
-                        </mat-select>
-                        <mat-error *ngIf="type.hasError('required')">
-                          {{'thesis.form.typeRequired' | translate}}
-                        </mat-error>
+                        <input type="text" matInput [value]="thesis.type" disabled>
                       </mat-form-field>
                       <mat-form-field appearance="outline" class="bottom-field">
                           <mat-label>{{'thesis.list.year' | translate}}</mat-label>
-                          <mat-select formControlName="year" [ngModelOptions]="{standalone: true}">
-                            <mat-option *ngFor="let year of filterOptions.years" [value]="year">{{year}}</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="year.hasError('required')">
-                            {{'thesis.form.yearRequired' | translate}}
-                          </mat-error>
+                          <input type="text" matInput [value]="thesis.year" disabled>
                         </mat-form-field>
                         <mat-form-field appearance="outline" class="bottom-field">
                             <mat-label>{{'thesis.list.field' | translate}}</mat-label>
-                            <mat-select formControlName="field" [ngModelOptions]="{standalone: true}"> 
-                                <mat-option *ngFor="let field of filterOptions.fieldNames" [value]="field">{{field}}</mat-option>
-                              </mat-select>
-                            <mat-error *ngIf="field.hasError('required')">
-                              {{'thesis.form.fieldRequired' | translate}}
-                            </mat-error>
+                            <input type="text" matInput [value]="thesis.fieldName" disabled>
                           </mat-form-field>
                           <mat-form-field appearance="outline" class="bottom-field">
                               <mat-label>{{'language.label' | translate}}</mat-label>
-                              <mat-select formControlName="language" [ngModelOptions]="{standalone: true}">
-                                <mat-option *ngFor="let language of filterOptions.languages" [value]="language">
-                                  {{'thesis.language.'+language | translate}}
-                                </mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="language.hasError('required')">
-                                {{'thesis.form.languageRequired' | translate}}
-                              </mat-error>
+                              <input type="text" matInput [value]="thesis.language" disabled>
                             </mat-form-field>
                   </div>          
                 <div class="spinner" *ngIf="loading || loadingFilters">

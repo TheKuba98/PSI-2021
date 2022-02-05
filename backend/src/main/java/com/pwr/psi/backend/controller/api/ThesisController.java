@@ -3,6 +3,7 @@ package com.pwr.psi.backend.controller.api;
 import com.pwr.psi.backend.exception.*;
 import com.pwr.psi.backend.model.dto.FilterOptionsDto;
 import com.pwr.psi.backend.model.dto.ThesisDto;
+import com.pwr.psi.backend.model.dto.ThesisForm;
 import com.pwr.psi.backend.model.dto.ThesisSearchDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +21,10 @@ public interface ThesisController {
     ResponseEntity<List<ThesisDto>> findFilteredAvailableTheses(@RequestBody ThesisSearchDto thesisSearchDto);
 
     @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE') or hasRole('REPRESENTATIVE')")
+    @GetMapping("/theses/{id}")
+    ResponseEntity<ThesisDto> findAvailableThesisById(@PathVariable int id, Principal principal) throws UserNotFoundException, ThesisNotFoundException, ThesisNotAvailableException;
+
+    @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE') or hasRole('REPRESENTATIVE')")
     @PostMapping("/my-theses")
     ResponseEntity<List<ThesisDto>> findMyFilteredTheses(@RequestBody ThesisSearchDto thesisSearchDto, Principal principal) throws UserNotFoundException;
 
@@ -35,15 +40,15 @@ public interface ThesisController {
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/theses/{id}/accept")
-    ResponseEntity<ThesisDto> markThesisAsAssigned(@PathVariable int id) throws ThesisNotFoundException, ThesisNotAvailableException;
+    ResponseEntity<ThesisDto> markThesisAsAssigned(@PathVariable int id) throws ThesisNotFoundException, ThesisNotAvailableException, ThesisWorkloadLimitReachedException;
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/theses/{id}/reject")
     ResponseEntity<ThesisDto> markThesisAsRegistered(@PathVariable int id) throws ThesisNotFoundException, ThesisNotAvailableException;
 
-//    @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE')")
-//    @PostMapping("/theses")
-//    ResponseEntity<ThesisDto> createThesis();
+    @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE')")
+    @PostMapping("/add-thesis")
+    ResponseEntity<ThesisDto> createThesis(@RequestBody ThesisForm thesisForm, Principal principal) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException;
 
     @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE') or hasRole('REPRESENTATIVE')")
     @GetMapping("/filter-options")
