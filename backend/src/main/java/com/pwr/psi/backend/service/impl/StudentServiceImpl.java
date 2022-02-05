@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl implements StudentService {
 
     private static final Logger LOG = LoggerFactory.getLogger(StudentServiceImpl.class);
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private String url = "http://localhost:8081/api/student/list";
 
     private final StudentRepository studentRepository;

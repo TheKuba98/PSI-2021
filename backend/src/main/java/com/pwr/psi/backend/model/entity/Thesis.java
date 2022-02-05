@@ -55,7 +55,7 @@ public class Thesis {
     @JoinColumn(name="username", nullable=false)
     private UniversityEmployee supervisor;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "share",
             joinColumns = @JoinColumn(name = "thesis_id"),
@@ -65,7 +65,7 @@ public class Thesis {
     @OneToMany(mappedBy="thesis")
     private Set<Review> reviews;
 
-    @OneToOne(mappedBy = "thesis")
+    @OneToOne(cascade = CascadeType.PERSIST ,mappedBy = "thesis")
     private ThesisDetails thesisDetails;
 
     public void addAuthor(Student student) {

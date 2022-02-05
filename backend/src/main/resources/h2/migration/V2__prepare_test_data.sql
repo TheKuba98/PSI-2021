@@ -22,12 +22,14 @@ values (1,'233331'),
 INSERT INTO `thesis`(asap_date, document_format, entering_date, shared_work, reserved,registered_by_student, thesis_status, username)
 VALUES (date('2022-06-04'), 'PDF', date('2022-06-02'), 1, 1,0,'ASSIGNED' ,'piotr70'),
        (date('2022-06-25'), 'PDF', date('2022-06-23'), 0, 0,0,'REGISTERED' ,'piotr70' ),
-       (date('2022-07-25'), 'PDF', date('2022-07-23'), 0, 1,0,'DONE' ,'piotr70' );
+       (date('2022-07-25'), 'PDF', date('2022-07-23'), 0, 1,0,'DONE' ,'piotr70' ),
+       (date('2022-07-25'), 'PDF', date('2022-07-23'), 0, 0,0,'REGISTERED' ,'piotr70' );
 
 INSERT INTO `thesis_details` (`language`, thesis_type, thema, field_id, username, thesis_id)
 VALUES ('polish', 'BSC', 'Aplikacja webowa dla sportowców',1,'233331', 1),
        ('polish', 'MASTERS', 'Analiza porównawcza baz SQL',1, null, 2),
-       ('polish', 'BA', 'Klasyfikacja',3,'233333', 3);;
+       ('polish', 'BA', 'Klasyfikacja',3,'233333', 3),
+        ('english', 'MASTERS', 'Analiza porównawcza algorytmów',1, null, 4);;
 
 INSERT INTO `share` (thesis_id, username)
 VALUES (1,'233331'),

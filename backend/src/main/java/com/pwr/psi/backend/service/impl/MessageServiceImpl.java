@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 public class MessageServiceImpl implements MessageService {
 
     private static final Logger LOG = LoggerFactory.getLogger(MessageServiceImpl.class);
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
     private String url = "http://localhost:8081/api/message/send";
 
     @Override
