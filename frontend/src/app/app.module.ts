@@ -17,17 +17,12 @@ import {MatInputModule} from "@angular/material/input";
 import {ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {BasicAuthInterceptor} from "./interceptors/basic-auth.interceptor";
-import { EventComponent } from './componOld/event/event.component';
-import { FacilitiesComponent } from './componOld/facilities/facilities.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
-import { FacilitiesFormComponent } from './componOld/facilities-form/facilities-form.component';
-import { EventFormComponent } from './componOld/event-form/event-form.component';
-import { EventDetailsComponent } from './componOld/event-details/event-details.component';
 import { ThesisListComponent } from './components/thesis-list/thesis-list.component';
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
@@ -49,11 +44,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     NavigationbarComponent,
     LoginComponent,
     HomeComponent,
-    EventComponent,
-    FacilitiesComponent,
-    FacilitiesFormComponent,
-    EventFormComponent,
-    EventDetailsComponent,
     ThesisListComponent,
     MyThesisListComponent,
     ThesisFormComponent,

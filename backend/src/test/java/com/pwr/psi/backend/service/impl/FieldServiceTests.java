@@ -2,14 +2,11 @@ package com.pwr.psi.backend.service.impl;
 
 import com.pwr.psi.backend.model.entity.Field;
 import com.pwr.psi.backend.model.entity.Student;
-import com.pwr.psi.backend.repository.FieldRepository;
-import com.pwr.psi.backend.repository.StudentRepository;
+import com.pwr.psi.backend.model.repository.FieldRepository;
+import com.pwr.psi.backend.model.repository.StudentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
-import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

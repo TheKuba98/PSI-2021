@@ -3,7 +3,7 @@ package com.pwr.psi.backend.service.impl;
 import com.pwr.psi.backend.exception.UserNotFoundException;
 import com.pwr.psi.backend.model.dto.UserDto;
 import com.pwr.psi.backend.model.entity.User;
-import com.pwr.psi.backend.repository.UserRepository;
+import com.pwr.psi.backend.model.repository.UserRepository;
 import com.pwr.psi.backend.service.api.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

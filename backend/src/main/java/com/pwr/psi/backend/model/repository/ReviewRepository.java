@@ -1,4 +1,4 @@
-package com.pwr.psi.backend.repository;
+package com.pwr.psi.backend.model.repository;
 
 import com.pwr.psi.backend.model.entity.Review;
 import org.springframework.data.jpa.repository.JpaRepository;

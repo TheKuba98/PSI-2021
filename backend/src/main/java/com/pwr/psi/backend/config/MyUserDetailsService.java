@@ -2,7 +2,7 @@ package com.pwr.psi.backend.config;
 
 import com.pwr.psi.backend.model.dto.MyUserDetails;
 import com.pwr.psi.backend.model.entity.User;
-import com.pwr.psi.backend.repository.UserRepository;
+import com.pwr.psi.backend.model.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

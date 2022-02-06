@@ -1,7 +1,7 @@
 package com.pwr.psi.backend.interceptor;
 
 import com.pwr.psi.backend.model.entity.ActivityLog;
-import com.pwr.psi.backend.repository.ActivityLogRepository;
+import com.pwr.psi.backend.model.repository.ActivityLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;

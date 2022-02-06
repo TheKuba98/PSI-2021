@@ -1,4 +1,4 @@
-package com.pwr.psi.backend.controller.api;
+package com.pwr.psi.backend.auth;
 
 import com.pwr.psi.backend.model.dto.UserDto;
 import com.pwr.psi.backend.model.dto.UserForm;

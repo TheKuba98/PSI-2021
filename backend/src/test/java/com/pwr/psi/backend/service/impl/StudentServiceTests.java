@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pwr.psi.backend.model.dto.FieldExternalDto;
 import com.pwr.psi.backend.model.dto.StudentExternalSystemDto;
 import com.pwr.psi.backend.model.entity.Student;
-import com.pwr.psi.backend.repository.StudentRepository;
+import com.pwr.psi.backend.model.repository.StudentRepository;
 import com.pwr.psi.backend.service.api.StudentService;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;

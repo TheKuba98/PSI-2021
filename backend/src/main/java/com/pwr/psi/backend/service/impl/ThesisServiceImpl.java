@@ -6,7 +6,7 @@ import com.pwr.psi.backend.model.entity.*;
 import com.pwr.psi.backend.model.enums.DocumentFormat;
 import com.pwr.psi.backend.model.enums.ThesisStatus;
 import com.pwr.psi.backend.model.enums.ThesisType;
-import com.pwr.psi.backend.repository.*;
+import com.pwr.psi.backend.model.repository.*;
 import com.pwr.psi.backend.service.api.ThesisService;
 import com.pwr.psi.backend.service.mapper.ThesisMapper;
 import com.pwr.psi.backend.service.mapper.UserMapper;

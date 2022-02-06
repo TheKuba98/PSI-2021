@@ -1,4 +1,4 @@
-package com.pwr.psi.backend.repository;
+package com.pwr.psi.backend.model.repository;
 
 import com.pwr.psi.backend.model.entity.Student;
 import com.pwr.psi.backend.model.entity.Thesis;

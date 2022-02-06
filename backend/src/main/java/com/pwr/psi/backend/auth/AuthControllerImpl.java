@@ -1,7 +1,7 @@
-package com.pwr.psi.backend.controller.impl;
+package com.pwr.psi.backend.auth;
 
 import com.pwr.psi.backend.exception.UserNotFoundException;
-import com.pwr.psi.backend.controller.api.AuthController;
+import com.pwr.psi.backend.auth.AuthController;
 import com.pwr.psi.backend.model.dto.UserDto;
 import com.pwr.psi.backend.model.dto.UserForm;
 import com.pwr.psi.backend.service.api.UserService;
