@@ -56,7 +56,7 @@ public class Thesis {
     @JoinColumn(name="username", nullable=false)
     private UniversityEmployee supervisor;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "share",
             joinColumns = @JoinColumn(name = "thesis_id"),
