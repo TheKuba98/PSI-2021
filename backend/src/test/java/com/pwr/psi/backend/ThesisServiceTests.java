@@ -16,20 +16,18 @@ import com.pwr.psi.backend.repository.StudentRepository;
 import com.pwr.psi.backend.repository.ThesisRepository;
 import com.pwr.psi.backend.repository.UniversityEmployeeRepository;
 import com.pwr.psi.backend.service.api.ThesisService;
-import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
 
+import javax.transaction.Transactional;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 @SpringBootTest
+@Transactional
 public class ThesisServiceTests {
 
     @Autowired
@@ -147,11 +145,11 @@ public class ThesisServiceTests {
                 fo-> fo.getThesisTypes().size(),
                 fo -> fo.getYears().size(),
                 fo -> fo.getFieldNames().size(),
-                fo -> fo.getLanguages().size()).containsExactly(1,3,3,3,2);
+                fo -> fo.getLanguages().size()).containsExactly(2,3,3,3,2);
     }
 
     @Test
-    public void shouldAssignThesisToStudent() throws UserNotFoundException, ThesisNotAvailableException, AuthorsLimitReachedException, ThesisNotFoundException, StudentAlreadyAssignedException {
+    public void shouldAssignThesisToStudent() throws UserNotFoundException, ThesisNotAvailableException, AuthorsLimitReachedException, ThesisNotFoundException, UserAlreadyAssignedException {
         //given
         Student student = studentRepository.findByUsername("233331").get();
         Thesis thesis = thesisRepository.findById(4).get();
@@ -176,7 +174,7 @@ public class ThesisServiceTests {
     }
 
     @Test
-    public void shouldMarkThesisAsAssigned() throws ThesisNotFoundException, ThesisNotAvailableException {
+    public void shouldMarkThesisAsAssigned() throws ThesisNotFoundException, ThesisNotAvailableException, ThesisWorkloadLimitReachedException {
         //given
         Thesis thesis = thesisRepository.findById(3).get();
         thesis.setThesisStatus(ThesisStatus.TO_ACCEPT);
