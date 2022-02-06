@@ -1,4 +1,4 @@
-package com.pwr.psi.backend;
+package com.pwr.psi.backend.service.impl;
 
 import com.pwr.psi.backend.exception.*;
 import com.pwr.psi.backend.model.dto.FilterOptionsDto;

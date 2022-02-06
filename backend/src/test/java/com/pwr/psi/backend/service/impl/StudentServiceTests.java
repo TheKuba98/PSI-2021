@@ -1,4 +1,4 @@
-package com.pwr.psi.backend;
+package com.pwr.psi.backend.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

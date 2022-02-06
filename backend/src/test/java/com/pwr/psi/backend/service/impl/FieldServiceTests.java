@@ -1,4 +1,4 @@
-package com.pwr.psi.backend;
+package com.pwr.psi.backend.service.impl;
 
 import com.pwr.psi.backend.model.entity.Field;
 import com.pwr.psi.backend.model.entity.Student;
