@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { FilterOptionsDto } from 'src/app/model/dto/filterOptionsDto';
 import { ThesisDto } from 'src/app/model/dto/thesisDto';
@@ -38,13 +40,21 @@ export class MyThesisListComponent implements OnInit {
 
   constructor(
     private thesisService:ThesisService,
-    private authService:AuthService
+    private authService:AuthService,
+    private snackBar:MatSnackBar,
+    private translateService:TranslateService
   ) { }
 
   acceptThesis(thesisId: number){
     this.loading=true;
     this.thesisService.markThesisAsAssigned(thesisId).subscribe(response=>{
       console.log(response);
+      this.getAllFilteredThesis();
+    },
+    (error) => {
+      console.log(error);
+      this.loading = false;
+      this.openSnackBar(error.error.message, this.translateService.instant('common.close'))
       this.getAllFilteredThesis();
     });
 
@@ -71,6 +81,13 @@ export class MyThesisListComponent implements OnInit {
     console.log("Modified!")
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action,{
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
+
   asignCoauthor(thesisId: number){
     console.log(this.coauthor);
     this.loading=true;
@@ -80,8 +97,9 @@ export class MyThesisListComponent implements OnInit {
       this.getAllFilteredThesis();
     },
     (error) => {
-      console.error('Jakis modal?')
-      // this.errorMessage = error;
+      console.log(error);
+      this.loading = false;
+      this.openSnackBar(error.error.message, this.translateService.instant('common.close'))
       this.getAllFilteredThesis();
     }
     );

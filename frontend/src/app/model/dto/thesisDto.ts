@@ -10,6 +10,7 @@ export class ThesisDto {
   language: string;
   status: string;
   authors:UserDto[];
-  thesisId:number;;
+  thesisId:number;
   reporter:string;
+  reviewers:UserDto[];
 }

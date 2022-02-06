@@ -2,10 +2,7 @@ package com.pwr.psi.backend.controller.impl;
 
 import com.pwr.psi.backend.exception.*;
 import com.pwr.psi.backend.controller.api.ThesisController;
-import com.pwr.psi.backend.model.dto.FilterOptionsDto;
-import com.pwr.psi.backend.model.dto.ThesisDto;
-import com.pwr.psi.backend.model.dto.ThesisForm;
-import com.pwr.psi.backend.model.dto.ThesisSearchDto;
+import com.pwr.psi.backend.model.dto.*;
 import com.pwr.psi.backend.service.api.ThesisService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +23,11 @@ public class ThesisControllerImpl implements ThesisController {
     }
 
     @Override
+    public ResponseEntity<List<ThesisDto>> findFilteredAvailableThesesWithReviewers(ThesisSearchDto thesisSearchDto) {
+        return ResponseEntity.ok(thesisService.findFilteredThesesWithReviewers(thesisSearchDto));
+    }
+
+    @Override
     public ResponseEntity<ThesisDto> findAvailableThesisById(int id, Principal principal) throws UserNotFoundException, ThesisNotFoundException, ThesisNotAvailableException {
         return ResponseEntity.ok(thesisService.findAvailableThesisById(id, principal.getName()));
     }
@@ -36,7 +38,7 @@ public class ThesisControllerImpl implements ThesisController {
     }
 
     @Override
-    public ResponseEntity<ThesisDto> assignThesis(String username, int id, Principal principal) throws ThesisNotFoundException, UserNotFoundException, StudentAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException {
+    public ResponseEntity<ThesisDto> assignThesis(String username, int id, Principal principal) throws ThesisNotFoundException, UserNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException {
         return ResponseEntity.ok(thesisService.assignThesisToStudent(username, id, principal.getName()));
     }
 
@@ -58,6 +60,11 @@ public class ThesisControllerImpl implements ThesisController {
     @Override
     public ResponseEntity<ThesisDto> createThesis(ThesisForm thesisForm, Principal principal) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException {
         return ResponseEntity.ok(thesisService.createThesis(thesisForm, principal.getName()));
+    }
+
+    @Override
+    public ResponseEntity<ThesisDto> updateThesis(ThesisForm thesisForm, int thesisId) throws ThesisNotAvailableException, UserNotFoundException {
+        return ResponseEntity.ok(thesisService.updateThesis(thesisForm, thesisId));
     }
 
     @Override

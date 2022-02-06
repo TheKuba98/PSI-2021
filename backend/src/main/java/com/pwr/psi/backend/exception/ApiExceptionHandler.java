@@ -18,8 +18,8 @@ public class ApiExceptionHandler {
     public static final String FIELD_NOT_FOUND_KEY = "fieldNotFound";
     public static final String WORKLOAD_REACHED_KEY = "workloadReached";
 
-    @ExceptionHandler(value = StudentAlreadyAssignedException.class)
-    public ResponseEntity<Object> handleStudentAlreadyAssignedException(StudentAlreadyAssignedException e) {
+    @ExceptionHandler(value = UserAlreadyAssignedException.class)
+    public ResponseEntity<Object> handleStudentAlreadyAssignedException(UserAlreadyAssignedException e) {
         ApiException apiException = new ApiException(
                 e.getMessage(),
                 ALREADY_ASSIGNED_KEY,

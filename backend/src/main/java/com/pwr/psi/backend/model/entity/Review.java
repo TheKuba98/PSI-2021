@@ -12,6 +12,8 @@ import javax.persistence.*;
 @RequiredArgsConstructor
 @Entity
 public class Review {
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "review_id")
     @NotNull

@@ -2,7 +2,8 @@
   "common":{
     "cancel":"Cancel",
     "ok":"Ok",
-    "close":"Close"
+    "close":"Close",
+    "update":"Update"
   },
   "language" : {
     "label" : "Language",
@@ -20,9 +21,11 @@
   },
   "thesis": {
     "avaliable" : "Avaliable theses",
+    "assignReviewers" : "Assign reviewers",
     "my" : "My theses",
     "submit" : "Submit subject",
     "declareSubject": "Declare a subject",
+    "change":"Change your theme and supervisor",
     "list" : {
       "topic" : "Topic",
       "supervisor" : "Supervisor",
@@ -35,7 +38,8 @@
       "state" : "State",
       "addCoauthor":"Add coauthor",
       "add":"Add",
-      "coauthor":"Coauthor"
+      "coauthor":"Coauthor",
+      "reviewer":"Reviewer"
     },
     "form":{
       "topicRequired":"Thesis topic is required",
@@ -44,7 +48,7 @@
       "yearRequired":"Year is required",
       "fieldRequired":"Field is required",
       "languageRequired":"Language is required",
-      "addSuccess":"Thesis added successfuly"
+      "addSuccess":"Thesis saved successfuly"
     },
     "type" : {
       "MASTERS" : "Master",

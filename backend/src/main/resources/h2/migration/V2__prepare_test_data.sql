@@ -6,7 +6,11 @@ VALUES ('Jakub', 'Test', date('1998-10-10'), 1, 'ROLE_STUDENT', '233331', '$2a$1
         ('Janusz', 'Kołodziej', date('1984-10-10'), 1, 'ROLE_STUDENT', '233333', '$2a$12$0Sfkw6LsoHq36OhtXWEPgeFnJ2MgUb1DilxxcQhpdZaKXQqoIYRa2',
         233333, 'ROLE_STUDENT', null, null, null, null ,null),
         ('Piotr', 'Baron', date('1970-10-10'), 1, 'ROLE_EMPLOYEE', 'piotr70', '$2a$12$0Sfkw6LsoHq36OhtXWEPgeFnJ2MgUb1DilxxcQhpdZaKXQqoIYRa2',
-        null, 'ROLE_EMPLOYEE', 'TEACHING_STAFF', 'SENIOR_LECTURER', 'DOCTOR', 100 ,0);
+        null, 'ROLE_EMPLOYEE', 'TEACHING_STAFF', 'SENIOR_LECTURER', 'DOCTOR', 100 ,0),
+        ('Czesław', 'Michniewicz', date('1970-10-11'), 1, 'ROLE_EMPLOYEE', 'czes70', '$2a$12$0Sfkw6LsoHq36OhtXWEPgeFnJ2MgUb1DilxxcQhpdZaKXQqoIYRa2',
+        null, 'ROLE_EMPLOYEE', 'TEACHING_STAFF', 'SENIOR_LECTURER', 'DOCTOR', 2 ,0),
+        ('Natalia', 'Maliszewska', date('1995-12-10'), 1, 'ROLE_REPRESENTATIVE', 'nat95', '$2a$12$0Sfkw6LsoHq36OhtXWEPgeFnJ2MgUb1DilxxcQhpdZaKXQqoIYRa2',
+        null, 'ROLE_REPRESENTATIVE', null, null, null, null ,null);
 
 Insert into `field` (name, degree, faculty, thesis_workload, education_cycle)
 values ('Informatyka', 'MASTERS', 'W8', 15, '2021'),

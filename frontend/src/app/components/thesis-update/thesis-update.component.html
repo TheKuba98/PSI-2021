@@ -6,20 +6,20 @@
 
     <div class="inputs-container" *ngIf="!loading && !loadingFilters">
         <form *ngIf="!submitted" [formGroup]="thesisForm" (ngSubmit)="onSubmit()" class="thesis-form">
-            <div class="add-thesis-title">  {{'thesis.declareSubject' | translate}}
+            <div class="add-thesis-title">  {{'thesis.change' | translate}}
                 <div class="submit-buttons">
                 <button mat-raised-button class="" type="button" [routerLink]="['/my-theses']">
                     {{'common.cancel' | translate}}
                     </button>
                 <button mat-raised-button class="available-button" type="submit">
-                {{'thesis.submit' | translate}}
+                {{'common.update' | translate}}
                 </button>
             </div>
         
             </div>
                 <mat-form-field appearance="outline" class="subject-input">
                   <mat-label>{{'thesis.list.topic' | translate}}</mat-label>
-                  <input type="text" matInput formControlName="theme" >
+                  <input type="text" matInput formControlName="theme" [value]="thesis.theme" >
                   <mat-error *ngIf="theme.hasError('required')">
                     {{'thesis.form.topicRequired' | translate}}
                   </mat-error>
@@ -39,7 +39,7 @@
                   <div class="bottom-inputs">
                     <mat-form-field appearance="outline" class="bottom-field">
                         <mat-label>{{'thesis.list.type' | translate}}</mat-label>
-                        <input type="text" matInput [value]="thesis.type" disabled>
+                        <input type="text" matInput [value]="'thesis.type.'+thesis.type | translate" disabled>
                       </mat-form-field>
                       <mat-form-field appearance="outline" class="bottom-field">
                           <mat-label>{{'thesis.list.year' | translate}}</mat-label>
@@ -51,15 +51,16 @@
                           </mat-form-field>
                           <mat-form-field appearance="outline" class="bottom-field">
                               <mat-label>{{'language.label' | translate}}</mat-label>
-                              <input type="text" matInput [value]="thesis.language" disabled>
+                              <input type="text" matInput [value]="'language.'+thesis.language | translate" disabled>
                             </mat-form-field>
                   </div>          
-                <div class="spinner" *ngIf="loading || loadingFilters">
-                  <mat-spinner [diameter]="30"></mat-spinner>
-                </div>
+         
         
          
             </form>
+    </div>
+    <div class="spinner" *ngIf="loading || loadingFilters">
+      <mat-spinner [diameter]="30"></mat-spinner>
     </div>
 
   </div>

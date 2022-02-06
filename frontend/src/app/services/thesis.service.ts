@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FilterOptionsDto } from '../model/dto/filterOptionsDto';
+import { MessageDto } from '../model/dto/messageDto';
 import { ThesisDto } from '../model/dto/thesisDto';
 import { ThesisFormDto } from '../model/dto/thesisFormDto';
 import { ThesisSearchDto } from '../model/dto/thesisSearchDto';
@@ -51,11 +52,23 @@ export class ThesisService {
       return this.httpClient.post<ThesisDto>('http://localhost:8080/api/theses/'+ thesisId+'/reject', null);
     }
 
-    addThesis(arena:ThesisFormDto):Observable<ThesisDto>{
-      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/add-thesis', arena);
+    addThesis(thesis:ThesisFormDto):Observable<ThesisDto>{
+      return this.httpClient.post<ThesisDto>('http://localhost:8080/api/add-thesis', thesis);
+    }
+
+    updateThesis(thesis:ThesisFormDto, id:number):Observable<ThesisDto>{
+      return this.httpClient.put<ThesisDto>('http://localhost:8080/api/update-thesis?thesisId='+id, thesis);
     }
 
     getAvailableThesisById(id:number):Observable<ThesisDto>{
       return this.httpClient.get<ThesisDto>('http://localhost:8080/api/theses/'+id);
+    }
+
+    getThesisWithReviewers(thesisSearchDto:ThesisSearchDto):Observable<ThesisDto[]>{
+      return this.httpClient.post<ThesisDto[]>('http://localhost:8080/api/theses-review',thesisSearchDto);
+    }
+
+    addReviewer(thesisId:number, username:string):Observable<MessageDto> {
+      return this.httpClient.post<MessageDto>('http://localhost:8080/api/theses/'+thesisId+'/add-review?username='+ username, null);
     }
 }

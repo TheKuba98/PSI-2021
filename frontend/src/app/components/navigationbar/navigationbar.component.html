@@ -36,7 +36,7 @@
         <span class="nav-link" [routerLink]="'my-theses'" *ngIf="showEmployeeStuff">{{'assignment.my' | translate}}</span>
         <span class="nav-link" [routerLink]="'add-thesis'"*ngIf="showEmployeeStuff">{{'thesis.submit' | translate}}</span>
 
-        <span class="nav-link" *ngIf="showRepresentativeStuff">{{'reviewer.assign' | translate}}</span>
+        <span class="nav-link" [routerLink]="'reviewers'" *ngIf="showRepresentativeStuff">{{'reviewer.assign' | translate}}</span>
       </div>
 
       <div class="nav-right">

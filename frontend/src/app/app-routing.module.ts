@@ -11,6 +11,7 @@ import { ThesisListComponent } from './components/thesis-list/thesis-list.compon
 import { MyThesisListComponent } from './components/my-thesis-list/my-thesis-list.component';
 import { ThesisFormComponent } from './components/thesis-form/thesis-form.component';
 import { ThesisUpdateComponent } from './components/thesis-update/thesis-update.component';
+import { ReviewersComponent } from './components/reviewers/reviewers.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'event-details/:id', component:EventDetailsComponent},
   { path: 'update-thesis/:id', component:ThesisUpdateComponent},
   { path: 'add-thesis', component:ThesisFormComponent},
+  { path: 'reviewers', component:ReviewersComponent},
 
   //otherwise redirect to home
   { path: '**', redirectTo: '' }

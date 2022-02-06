@@ -39,7 +39,7 @@
       </div>
     </button>
 
-    <button *ngIf="showRepresentativeStuff" class="menu-button">
+    <button *ngIf="showRepresentativeStuff" [routerLink]="'reviewers'" class="menu-button">
       <div class="button-conent">
         <mat-icon>group_add</mat-icon>
         <div class="vl"></div>
@@ -47,7 +47,7 @@
       </div>
     </button>
 
-    <button class="menu-button">
+    <button class="menu-button" (click)="logout()">
       <div class="button-conent">
         <mat-icon>power_settings_new</mat-icon>
         <div class="vl"></div>

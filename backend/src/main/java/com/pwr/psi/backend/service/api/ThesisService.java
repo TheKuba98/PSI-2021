@@ -1,10 +1,7 @@
 package com.pwr.psi.backend.service.api;
 
 import com.pwr.psi.backend.exception.*;
-import com.pwr.psi.backend.model.dto.FilterOptionsDto;
-import com.pwr.psi.backend.model.dto.ThesisDto;
-import com.pwr.psi.backend.model.dto.ThesisForm;
-import com.pwr.psi.backend.model.dto.ThesisSearchDto;
+import com.pwr.psi.backend.model.dto.*;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public interface ThesisService {
 
     FilterOptionsDto getFilterOptions();
 
-    ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, StudentAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException;
+    ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException;
 
     ThesisDto markThesisAsDone(int id) throws ThesisNotFoundException, ThesisNotAvailableException;
 
@@ -29,4 +26,8 @@ public interface ThesisService {
     ThesisDto createThesis(ThesisForm thesisForm, String username) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException;
 
     ThesisDto findAvailableThesisById(int id, String name) throws ThesisNotFoundException, UserNotFoundException, ThesisNotAvailableException;
+
+    ThesisDto updateThesis(ThesisForm thesisForm, int thesisId) throws ThesisNotAvailableException, UserNotFoundException;
+
+    List<ThesisDto> findFilteredThesesWithReviewers(ThesisSearchDto thesisSearchDto);
 }

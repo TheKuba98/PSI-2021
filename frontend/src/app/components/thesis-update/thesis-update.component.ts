@@ -53,7 +53,7 @@ export class ThesisUpdateComponent implements OnInit {
     if (this.thesisForm.invalid) {
       return;
     }
-    this.createThesis();
+    this.updateThesis();
   }
 
   openSnackBar(message: string, action: string) {
@@ -71,20 +71,27 @@ export class ThesisUpdateComponent implements OnInit {
 
   getAvailableThesisById(id:number): void {
     this.loading=true;
-    this.thesisService.getAvailableThesisById(id).subscribe(response=>{this.thesis = response;this.loading=false;console.log(response)});
+    this.thesisService.getAvailableThesisById(id).subscribe(response=>{
+      this.thesis = response;
+      this.thesisForm = this.formBuilder.group({
+        theme: [this.thesis.theme,Validators.required],
+        supervisor: [this.thesis.supervisorUsername, Validators.required],
+       
+      });
+      this.loading=false;console.log(response)});
   }
 
-  createThesis(): void {
+  updateThesis(): void {
     this.loading = true;
     const thesisForm:ThesisFormDto = {
       theme:this.theme.value,
       supervisor:this.supervisor.value,
-      type:this.type.value,
-      year:this.year.value,
-      field:this.field.value,
-      language:this.language.value
+      type:'',
+      year:'',
+      field:'',
+      language:''
     }
-    this.thesisService.addThesis(thesisForm)
+    this.thesisService.updateThesis(thesisForm, this.thesis.thesisId)
     .subscribe(
       response => {
         console.log(response);
@@ -100,6 +107,8 @@ export class ThesisUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const thesisId = this.activatedRoute.snapshot.paramMap.get('id');
+    this.getAvailableThesisById(Number(thesisId));
     this.authService.user.subscribe(response => {
       if (response !== null) {
         this.roles = response.roles;
@@ -120,14 +129,7 @@ export class ThesisUpdateComponent implements OnInit {
 
     this.fetchfilterOptions();
 
-    this.thesisForm = this.formBuilder.group({
-      theme: ['',Validators.required],
-      supervisor: ['', Validators.required],
-     
-    });
 
-    const thesisId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.getAvailableThesisById(Number(thesisId));
   }
 
 }

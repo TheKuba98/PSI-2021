@@ -37,6 +37,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { ThesisFormComponent } from './components/thesis-form/thesis-form.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ThesisUpdateComponent } from './components/thesis-update/thesis-update.component';
+import { ReviewersComponent } from './components/reviewers/reviewers.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -56,7 +57,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ThesisListComponent,
     MyThesisListComponent,
     ThesisFormComponent,
-    ThesisUpdateComponent
+    ThesisUpdateComponent,
+    ReviewersComponent
   ],
   imports: [
     BrowserModule,

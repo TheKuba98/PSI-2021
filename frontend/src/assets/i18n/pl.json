@@ -2,7 +2,8 @@
   "common":{
     "cancel":"Anuluj",
     "ok":"Ok",
-    "close":"Close"
+    "close":"Zamknij",
+    "update":"Zmień"
   },
   "language" : {
     "label" : "Język",
@@ -20,9 +21,11 @@
   },
   "thesis": {
     "avaliable" : "Dostępne prace",
+    "assignReviewers" : "Przydziel recenzentów",
     "my" : "Moje prace",
     "submit" : "Zgłoś temat",
     "declareSubject": "Zgłoś temat",
+    "change":"Zmień temat i opiekuna",
     "list" : {
       "topic" : "Temat",
       "supervisor" : "Opiekun",
@@ -35,7 +38,8 @@
       "state" : "Stan",
       "addCoauthor":"Dodaj współautora",
       "add":"Dodaj",
-      "coauthor":"Współautor"
+      "coauthor":"Współautor",
+      "reviewer":"Recenzent"
     },
     "form":{
       "topicRequired":"Temat pracy jest wymagany",
@@ -44,7 +48,7 @@
       "yearRequired":"Rok jest wymagany",
       "fieldRequired":"Kierunek jest wymagany",
       "languageRequired":"Język jest wymagany",
-      "addSuccess":"Praca zgłoszona pomyślnie"
+      "addSuccess":"Praca zapisana pomyślnie"
     },
     "type" : {
       "MASTERS" : "Magisterska",

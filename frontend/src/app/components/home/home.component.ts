@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import {map} from "rxjs/operators";
 import { AuthService } from '../../auth/auth.service';
@@ -31,6 +31,10 @@ export class HomeComponent implements OnInit {
 
   getUserData() {
     this.authService.checkInterceptors().subscribe((u) => {this.user = u;})
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

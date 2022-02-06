@@ -19,4 +19,5 @@ public class ThesisDto {
     private List<UserDto> authors;
     private int thesisId;
     private String reporter;
+    private List<UserDto> reviewers;
 }

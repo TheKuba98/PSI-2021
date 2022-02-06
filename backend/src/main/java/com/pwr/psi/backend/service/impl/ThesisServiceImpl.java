@@ -131,7 +131,7 @@ public class ThesisServiceImpl implements ThesisService {
         return new FilterOptionsDto(supervisors, thesisTypes, years, fieldNames, languages);
     }
 
-    public ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, StudentAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException {
+    public ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException {
         String usernameToAssign;
         if (Objects.nonNull(username)) {
             usernameToAssign = username;
@@ -152,7 +152,7 @@ public class ThesisServiceImpl implements ThesisService {
         Student student = studentRepository.findByUsername(usernameToAssign).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
 
         if (isStudentAlreadyAssignedToThesis(student, thesis)) {
-            throw new StudentAlreadyAssignedException(STUDENT_ALREADY_ASSIGNED_MESSAGE);
+            throw new UserAlreadyAssignedException(STUDENT_ALREADY_ASSIGNED_MESSAGE);
         }
 
         if (hasThesisNoAuthors(thesis)) {
@@ -202,7 +202,7 @@ public class ThesisServiceImpl implements ThesisService {
         int currentWorkload = getCurrentWorkload(thesis.getSupervisor());
         int thesisWorkload = getThesisWorkload(thesis);
 
-        if(thesis.getSupervisor().getThesisWorkloadLimit() < (currentWorkload+thesisWorkload)){
+        if (thesis.getSupervisor().getThesisWorkloadLimit() < (currentWorkload + thesisWorkload)) {
             throw new ThesisWorkloadLimitReachedException(THESIS_WORKLOAD_LIMIT_REACHED_MESSAGE);
         }
 
@@ -262,7 +262,7 @@ public class ThesisServiceImpl implements ThesisService {
             thesis.setRegisteredByStudent(NOT_REGISTERED_BY_STUDENT);
             thesis.setThesisStatus(ThesisStatus.REGISTERED);
         } else if (user.getRoles().contains(ROLE_STUDENT)) {
-            UniversityEmployee universityEmployee = (UniversityEmployee) universityEmployeeRepository.findByUsername(thesisForm.getSupervisor())
+            UniversityEmployee universityEmployee =  universityEmployeeRepository.findByUsername(thesisForm.getSupervisor())
                     .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
             Student student = (Student) user;
             thesisDetails.setStudent(student);
@@ -293,11 +293,33 @@ public class ThesisServiceImpl implements ThesisService {
         }
     }
 
+    @Override
+    public ThesisDto updateThesis(ThesisForm thesisForm, int thesisId) throws ThesisNotAvailableException, UserNotFoundException {
+        Thesis thesis = thesisRepository.findById(thesisId)
+                .orElseThrow(() -> new ThesisNotAvailableException(THESIS_NOT_AVAILABLE_MESSAGE));
+        UniversityEmployee supervisor = universityEmployeeRepository.findByUsername(thesisForm.getSupervisor())
+                .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
+
+        ThesisDetails thesisDetails = thesis.getThesisDetails();
+        thesisDetails.setThema(thesisForm.getTheme());
+        thesis.setSupervisor(supervisor);
+        thesis.setThesisDetails(thesisDetails);
+        thesis.setThesisStatus(ThesisStatus.TO_ACCEPT);
+
+        return thesisMapper.thesisToThesisDTO(thesisRepository.save(thesis));
+    }
+
+    @Override
+    public List<ThesisDto> findFilteredThesesWithReviewers(ThesisSearchDto thesisSearchDto) {
+        List<ThesisDto> theses = thesisMapper.thesisListToThesisDtoList(thesisRepository.findAllByThesisStatus(ThesisStatus.ASSIGNED));
+        return filterTheses(theses, thesisSearchDto);
+    }
+
     private int getCurrentWorkload(UniversityEmployee universityEmployee) {
         List<String> thesesDegrees = universityEmployee.getThesis().stream()
                 .map(Thesis::getThesisDetails)
-                .filter(a->Objects.nonNull(a.getStudent()))
-                .filter(a->a.getThesis().getThesisStatus()==ThesisStatus.ASSIGNED)
+                .filter(a -> Objects.nonNull(a.getStudent()))
+                .filter(a -> a.getThesis().getThesisStatus() == ThesisStatus.ASSIGNED)
                 .map(ThesisDetails::getField)
                 .map(Field::getDegree)
                 .collect(Collectors.toList());
