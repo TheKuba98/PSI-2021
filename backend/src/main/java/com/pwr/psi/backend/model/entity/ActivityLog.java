@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.Instant;
 
 @Entity
 @Table(name = "activity_log")
@@ -33,6 +34,10 @@ public class ActivityLog {
     @Column(name = "remote_addr")
     @NotNull
     private String addr;
+
+    @Column(name = "activity_date")
+    @NotNull
+    private Instant activityDate;
 
     @Column(name = "http_status")
     @NotNull

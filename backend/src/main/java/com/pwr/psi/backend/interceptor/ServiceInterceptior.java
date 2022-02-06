@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.Instant;
 
 @Component
 public class ServiceInterceptior implements HandlerInterceptor {
@@ -24,6 +25,7 @@ public class ServiceInterceptior implements HandlerInterceptor {
         activityLog.setUsername(request.getRemoteUser());
         activityLog.setUrl(request.getRequestURL().toString());
         activityLog.setHttpStatus(response.getStatus());
+        activityLog.setActivityDate(Instant.now());
         activityLogRepository.save(activityLog);
     }
 }
