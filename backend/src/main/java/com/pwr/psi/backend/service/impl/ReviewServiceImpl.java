@@ -1,24 +1,27 @@
 package com.pwr.psi.backend.service.impl;
 
-import com.pwr.psi.backend.exception.*;
-import com.pwr.psi.backend.model.dto.*;
-import com.pwr.psi.backend.model.entity.*;
-import com.pwr.psi.backend.model.enums.DocumentFormat;
+import com.pwr.psi.backend.exception.ThesisNotAvailableException;
+import com.pwr.psi.backend.exception.ThesisNotFoundException;
+import com.pwr.psi.backend.exception.UserAlreadyAssignedException;
+import com.pwr.psi.backend.exception.UserNotFoundException;
+import com.pwr.psi.backend.model.dto.MessageExternalDto;
+import com.pwr.psi.backend.model.entity.DeanRepresentative;
+import com.pwr.psi.backend.model.entity.Review;
+import com.pwr.psi.backend.model.entity.Thesis;
+import com.pwr.psi.backend.model.entity.UniversityEmployee;
 import com.pwr.psi.backend.model.enums.ThesisStatus;
-import com.pwr.psi.backend.model.enums.ThesisType;
-import com.pwr.psi.backend.repository.*;
+import com.pwr.psi.backend.repository.DeanRepresentativeRepository;
+import com.pwr.psi.backend.repository.ReviewRepository;
+import com.pwr.psi.backend.repository.ThesisRepository;
+import com.pwr.psi.backend.repository.UniversityEmployeeRepository;
 import com.pwr.psi.backend.service.api.MessageService;
 import com.pwr.psi.backend.service.api.ReviewService;
-import com.pwr.psi.backend.service.api.ThesisService;
-import com.pwr.psi.backend.service.mapper.ThesisMapper;
-import com.pwr.psi.backend.service.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
+
+import static com.pwr.psi.backend.model.enums.EPosition.RESEARCH_TEACHING_STAFF;
 
 @RequiredArgsConstructor
 @Service
@@ -28,9 +31,13 @@ public class ReviewServiceImpl implements ReviewService {
     public static final String USER_NOT_FOUND_MESSAGE = "User with this login does not exist";
     public static final String THESIS_NOT_AVAILABLE_MESSAGE = "Thesis is not available";
     public static final double DEFAULT_GRADE = 5.0;
+    public static final int ALLOWED_REVIEWS_NUMBER = 2;
     public static final String DEFAULT_OPINION = "Super";
     public static final String MESSAGE = "Reviewer assigned";
     public static final String REVIEWER_ALREADY_ASSIGNED_MESSAGE = "This reviewer is already assigned to the following thesis";
+    public static final String CANNOT_BE_REVIEWER_MESSAGE = "This employee can not be a reviewer";
+    public static final String REVIEWS_LIMIT_REACHED = "This thesis has maximal number of reviews";
+    public static final String SUPERVISOR_CAN_NOT_BE_REVIEWER_MESSAGE = "Supervisor can not be reviewer";
 
     private final MessageService messageService;
     private final ThesisRepository thesisRepository;
@@ -52,9 +59,17 @@ public class ReviewServiceImpl implements ReviewService {
             throw new UserAlreadyAssignedException(REVIEWER_ALREADY_ASSIGNED_MESSAGE);
         }
 
-//        if(thesis.getReviews().stream().map(Review::getAuthor).collect(Collectors.toList()).contains(thesis.getSupervisor())) {
-//            throw new ThesisNotAvailableException("Supervisor can not be reviewer");
-//        }
+        if (thesis.getReviews().size() >= ALLOWED_REVIEWS_NUMBER) {
+            throw new UserAlreadyAssignedException(REVIEWS_LIMIT_REACHED);
+        }
+
+        if (universityEmployee.getPosition().equals(RESEARCH_TEACHING_STAFF)) {
+            throw new ThesisNotAvailableException(CANNOT_BE_REVIEWER_MESSAGE);
+        }
+
+        if(thesis.getReviews().stream().map(Review::getAuthor).collect(Collectors.toList()).contains(thesis.getSupervisor())) {
+            throw new ThesisNotAvailableException(SUPERVISOR_CAN_NOT_BE_REVIEWER_MESSAGE);
+        }
 
         DeanRepresentative representative = deanRepresentativeRepository.findByUsername(name).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
         Review review = new Review();

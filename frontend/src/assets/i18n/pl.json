@@ -5,6 +5,9 @@
     "close":"Zamknij",
     "update":"Zmień"
   },
+  "message":{
+    "sent":"Wysłano wiadomość do"
+  },
   "language" : {
     "label" : "Język",
     "polish" : "Polski",

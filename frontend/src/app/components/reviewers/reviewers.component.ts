@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 import { FilterOptionsDto } from 'src/app/model/dto/filterOptionsDto';
 import { MessageDto } from 'src/app/model/dto/messageDto';
 import { ThesisDto } from 'src/app/model/dto/thesisDto';
@@ -28,7 +30,9 @@ export class ReviewersComponent implements OnInit {
   displayedColumns:string[] =  ['theme','authors','supervisor','type','year','field', 'language', 'reviewers','action'];
 
   constructor(
-    private thesisService:ThesisService
+    private thesisService:ThesisService,
+    private snackBar:MatSnackBar,
+    private translateService:TranslateService
   ) { }
 
   reserveThesis(thesisId: number){
@@ -53,6 +57,13 @@ export class ReviewersComponent implements OnInit {
     this.fetchAllAvailableFilteredThesesWithReviews(searchCriteria);
   }
 
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action,{
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
+
   clearFilters(){
     this.thema="";
     this.supervisor="";
@@ -70,6 +81,8 @@ export class ReviewersComponent implements OnInit {
       console.log(response);
       this.fetchfilterOptions();
       this.filter();
+      this.openSnackBar(this.translateService.instant('message.sent')+response.receiver, this.translateService.instant('common.close'))
+
     });
 
  

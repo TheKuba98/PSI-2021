@@ -5,6 +5,9 @@
     "close":"Close",
     "update":"Update"
   },
+  "message":{
+    "sent":"Sent message to"
+  },
   "language" : {
     "label" : "Language",
     "polish" : "Polish",
