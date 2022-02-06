@@ -149,7 +149,7 @@ public class ThesisServiceTests {
     }
 
     @Test
-    public void shouldAssignThesisToStudent() throws UserNotFoundException, ThesisNotAvailableException, AuthorsLimitReachedException, ThesisNotFoundException, UserAlreadyAssignedException {
+    public void shouldAssignThesisToStudent() throws UserNotFoundException, ThesisNotAvailableException, AuthorsLimitReachedException, ThesisNotFoundException, UserAlreadyAssignedException, BadFieldException {
         //given
         Student student = studentRepository.findByUsername("233331").get();
         Thesis thesis = thesisRepository.findById(4).get();

@@ -49,12 +49,13 @@ export class MyThesisListComponent implements OnInit {
     this.loading=true;
     this.thesisService.markThesisAsAssigned(thesisId).subscribe(response=>{
       console.log(response);
+      this.openSnackBar(this.translateService.instant('message.thesisAccepted'), this.translateService.instant('common.close'))
       this.getAllFilteredThesis();
     },
     (error) => {
       console.log(error);
       this.loading = false;
-      this.openSnackBar(error.error.message, this.translateService.instant('common.close'))
+      this.openSnackBar(this.translateService.instant('error.'+error.error.key), this.translateService.instant('common.close'))
       this.getAllFilteredThesis();
     });
 
@@ -64,6 +65,7 @@ export class MyThesisListComponent implements OnInit {
     this.loading=true;
     this.thesisService.markThesisAsRegistered(thesisId).subscribe(response=>{
       console.log(response);
+      this.openSnackBar(this.translateService.instant('message.thesisRejected'), this.translateService.instant('common.close'))
       this.getAllFilteredThesis();
     });
   }
@@ -72,13 +74,10 @@ export class MyThesisListComponent implements OnInit {
     this.loading=true;
     this.thesisService.markThesisAsCompleted(thesisId).subscribe(response=>{
       console.log(response);
+      this.openSnackBar(this.translateService.instant('message.thesisCompleted'), this.translateService.instant('common.close'))
       this.getAllFilteredThesis();
     });
 
-  }
-
-  modifyThesis(thesisId: number){
-    console.log("Modified!")
   }
 
   openSnackBar(message: string, action: string) {
@@ -99,7 +98,7 @@ export class MyThesisListComponent implements OnInit {
     (error) => {
       console.log(error);
       this.loading = false;
-      this.openSnackBar(error.error.message, this.translateService.instant('common.close'))
+      this.openSnackBar(this.translateService.instant('error.'+error.error.key), this.translateService.instant('common.close'))
       this.getAllFilteredThesis();
     }
     );

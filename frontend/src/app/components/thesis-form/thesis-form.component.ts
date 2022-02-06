@@ -94,7 +94,7 @@ export class ThesisFormComponent implements OnInit {
       error => {
         console.log(error);
         this.loading = false;
-        this.openSnackBar(error.error.message, this.translateService.instant('common.close'))
+        this.openSnackBar(this.translateService.instant("error."+error.error.key), this.translateService.instant('common.close'))
       });
     this.loading=false;
   }

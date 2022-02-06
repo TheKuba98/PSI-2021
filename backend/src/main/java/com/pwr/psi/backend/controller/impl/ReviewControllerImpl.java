@@ -3,10 +3,7 @@ package com.pwr.psi.backend.controller.impl;
 
 import com.pwr.psi.backend.controller.api.ReviewController;
 import com.pwr.psi.backend.controller.api.StudentController;
-import com.pwr.psi.backend.exception.ThesisNotAvailableException;
-import com.pwr.psi.backend.exception.ThesisNotFoundException;
-import com.pwr.psi.backend.exception.UserAlreadyAssignedException;
-import com.pwr.psi.backend.exception.UserNotFoundException;
+import com.pwr.psi.backend.exception.*;
 import com.pwr.psi.backend.model.dto.MessageExternalDto;
 import com.pwr.psi.backend.model.dto.ThesisDto;
 import com.pwr.psi.backend.service.api.MessageService;
@@ -28,7 +25,7 @@ public class ReviewControllerImpl implements ReviewController {
     private final ReviewService reviewService;
 
     @Override
-    public ResponseEntity<MessageExternalDto> addReviewer(String username, int id, Principal principal) throws ThesisNotFoundException, UserNotFoundException, ThesisNotAvailableException, UserAlreadyAssignedException {
+    public ResponseEntity<MessageExternalDto> addReviewer(String username, int id, Principal principal) throws ThesisNotFoundException, UserNotFoundException, ThesisNotAvailableException, UserAlreadyAssignedException, CanNotBeReviewerException {
         return ResponseEntity.ok(reviewService.addReviewer(username, id, principal.getName()));
     }
 }

@@ -15,7 +15,7 @@ public interface ThesisService {
 
     FilterOptionsDto getFilterOptions();
 
-    ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException;
+    ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException, BadFieldException;
 
     ThesisDto markThesisAsDone(int id) throws ThesisNotFoundException, ThesisNotAvailableException;
 
@@ -23,7 +23,7 @@ public interface ThesisService {
 
     ThesisDto markThesisAsRegistered(int id) throws ThesisNotFoundException, ThesisNotAvailableException;
 
-    ThesisDto createThesis(ThesisForm thesisForm, String username) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException;
+    ThesisDto createThesis(ThesisForm thesisForm, String username) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException, BadFieldException;
 
     ThesisDto findAvailableThesisById(int id, String name) throws ThesisNotFoundException, UserNotFoundException, ThesisNotAvailableException;
 

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="showStudentStuff || showEmployeeStuff">
 
     <div *ngIf="submitted" class="thesis-add-success ">
         <p class="success-response"> {{'thesis.form.addSuccess' | translate}}</p>

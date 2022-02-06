@@ -40,6 +40,9 @@
       </div>
 
       <div class="nav-right">
+        <button [routerLink]="'login'" *ngIf="!showStudentStuff && !showRepresentativeStuff && !showEmployeeStuff" mat-button >{{'form.loginComponent.label' | translate}}
+         
+        </button>
         <button class="languageMenu" mat-button [matMenuTriggerFor]="langMenu">{{'language.label' | translate}}
           <mat-icon>keyboard_arrow_down</mat-icon>
         </button>

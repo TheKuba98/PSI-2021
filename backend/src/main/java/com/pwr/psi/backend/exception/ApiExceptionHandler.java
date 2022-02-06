@@ -15,8 +15,11 @@ public class ApiExceptionHandler {
     public static final String USER_NOT_FOUND_KEY = "userNotFound";
     public static final String THESIS_NOT_FOUND_KEY = "thesisNotFound";
     public static final String THESIS_NOT_AVAILABLE_KEY = "thesisNotAvailable";
+    public static final String AUTHORS_LIMIT_REACHED = "authorsLimitReached";
     public static final String FIELD_NOT_FOUND_KEY = "fieldNotFound";
     public static final String WORKLOAD_REACHED_KEY = "workloadReached";
+    public static final String BAD_FIELD_KEY = "badField";
+    private static final String CAN_NOT_BE_REVIEWER_KEY = "cantBeReviewer";
 
     @ExceptionHandler(value = UserAlreadyAssignedException.class)
     public ResponseEntity<Object> handleStudentAlreadyAssignedException(UserAlreadyAssignedException e) {
@@ -77,7 +80,7 @@ public class ApiExceptionHandler {
     public ResponseEntity<Object> handleAuthorsLimitReachedException(AuthorsLimitReachedException e) {
         ApiException apiException = new ApiException(
                 e.getMessage(),
-                THESIS_NOT_AVAILABLE_KEY,
+                AUTHORS_LIMIT_REACHED,
                 HttpStatus.BAD_REQUEST,
                 ZonedDateTime.now());
 
@@ -100,6 +103,28 @@ public class ApiExceptionHandler {
         ApiException apiException = new ApiException(
                 e.getMessage(),
                 WORKLOAD_REACHED_KEY,
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now());
+
+        return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = BadFieldException.class)
+    public ResponseEntity<Object> handleBadFieldException(BadFieldException e) {
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                BAD_FIELD_KEY,
+                HttpStatus.BAD_REQUEST,
+                ZonedDateTime.now());
+
+        return new ResponseEntity<>(apiException, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = CanNotBeReviewerException.class)
+    public ResponseEntity<Object> handleCanNotBeReviewerException(CanNotBeReviewerException e) {
+        ApiException apiException = new ApiException(
+                e.getMessage(),
+                CAN_NOT_BE_REVIEWER_KEY,
                 HttpStatus.BAD_REQUEST,
                 ZonedDateTime.now());
 

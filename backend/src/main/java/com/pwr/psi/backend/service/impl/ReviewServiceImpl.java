@@ -1,9 +1,6 @@
 package com.pwr.psi.backend.service.impl;
 
-import com.pwr.psi.backend.exception.ThesisNotAvailableException;
-import com.pwr.psi.backend.exception.ThesisNotFoundException;
-import com.pwr.psi.backend.exception.UserAlreadyAssignedException;
-import com.pwr.psi.backend.exception.UserNotFoundException;
+import com.pwr.psi.backend.exception.*;
 import com.pwr.psi.backend.model.dto.MessageExternalDto;
 import com.pwr.psi.backend.model.entity.DeanRepresentative;
 import com.pwr.psi.backend.model.entity.Review;
@@ -46,7 +43,7 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
 
     @Override
-    public MessageExternalDto addReviewer(String username, int id, String name) throws ThesisNotFoundException, UserNotFoundException, ThesisNotAvailableException, UserAlreadyAssignedException {
+    public MessageExternalDto addReviewer(String username, int id, String name) throws ThesisNotFoundException, UserNotFoundException, ThesisNotAvailableException, UserAlreadyAssignedException, CanNotBeReviewerException {
         Thesis thesis = thesisRepository.findById(id).orElseThrow(() -> new ThesisNotFoundException(THESIS_NOT_FOUND_MESSAGE));
 
         if (thesis.getThesisStatus() != ThesisStatus.ASSIGNED) {
@@ -64,11 +61,11 @@ public class ReviewServiceImpl implements ReviewService {
         }
 
         if (universityEmployee.getPosition().equals(RESEARCH_TEACHING_STAFF)) {
-            throw new ThesisNotAvailableException(CANNOT_BE_REVIEWER_MESSAGE);
+            throw new CanNotBeReviewerException(CANNOT_BE_REVIEWER_MESSAGE);
         }
 
-        if(thesis.getReviews().stream().map(Review::getAuthor).collect(Collectors.toList()).contains(thesis.getSupervisor())) {
-            throw new ThesisNotAvailableException(SUPERVISOR_CAN_NOT_BE_REVIEWER_MESSAGE);
+        if(universityEmployee.equals(thesis.getSupervisor())) {
+            throw new CanNotBeReviewerException(SUPERVISOR_CAN_NOT_BE_REVIEWER_MESSAGE);
         }
 
         DeanRepresentative representative = deanRepresentativeRepository.findByUsername(name).orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));

@@ -18,7 +18,12 @@ public class ThesisMapper {
     private final UserMapper userMapper;
 
     public ThesisDto thesisToThesisDTO(Thesis thesis) {
-        String supervisorNames = thesis.getSupervisor().getFirstName() + " " + thesis.getSupervisor().getLastName();
+        String supervisorNames = Objects.isNull(thesis.getSupervisor())
+                ? ""
+                : thesis.getSupervisor().getFirstName() + " " + thesis.getSupervisor().getLastName();
+        String supervisorUsername = Objects.isNull(thesis.getSupervisor())
+                ? ""
+                : thesis.getSupervisor().getUsername();
         String reporter = Objects.isNull(thesis.getThesisDetails().getStudent())
                 ? null
                 : thesis.getThesisDetails().getStudent().getUsername();
@@ -27,10 +32,10 @@ public class ThesisMapper {
                 : List.copyOf(thesis.getAuthors());
         List<UniversityEmployee> reviewers = Objects.isNull(thesis.getReviews())
                 ? List.of()
-                :thesis.getReviews().stream().map(Review::getAuthor).collect(Collectors.toList());
+                : thesis.getReviews().stream().map(Review::getAuthor).collect(Collectors.toList());
 
         return new ThesisDto(thesis.getThesisDetails().getThema(),
-                thesis.getSupervisor().getUsername(),
+                supervisorUsername,
                 supervisorNames,
                 thesis.getThesisDetails().getThesisType().toString(),
                 thesis.getThesisDetails().getField().getEducationCycle(),
@@ -45,5 +50,5 @@ public class ThesisMapper {
 
     public List<ThesisDto> thesisListToThesisDtoList(List<Thesis> thesisList) {
         return thesisList.stream().map(this::thesisToThesisDTO).collect(Collectors.toList());
-    };
+    }
 }

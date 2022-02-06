@@ -6,7 +6,20 @@
     "update":"Zmień"
   },
   "message":{
-    "sent":"Wysłano wiadomość do"
+    "sent":"Wysłano wiadomość do",
+    "thesisReserved":"Praca została zarezerwowana i wysłana do akceptacji",
+    "thesisAccepted":"Praca została zaakceptowana",
+    "thesisRejected":"Praca została odrzucona",
+    "thesisCompleted":"Praca została oznaczona jako zrealizowana"
+  },
+  "error":{
+    "alreadyAssigned":"Ta osoba jest już przypisana",
+    "userNotFound":"Taki użytkownik nie istnieje",
+    "authorsLimitReached":"Limit autorów został już osiągnięty",
+    "badField":"Kierunki studenta i pracy nie są takie same",
+    "fieldNotFound":"Kierunek z podaną nazwą, rokiem i stopniem nie istnieje",
+    "workloadReached":"Pensum nie może być przekroczone",
+    "cantBeReviewer":"Ta osoba nie może być recenzentem"
   },
   "language" : {
     "label" : "Język",

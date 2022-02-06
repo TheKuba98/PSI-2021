@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { AuthService } from 'src/app/auth/auth.service';
 import { FilterOptionsDto } from 'src/app/model/dto/filterOptionsDto';
 import { MessageDto } from 'src/app/model/dto/messageDto';
 import { ThesisDto } from 'src/app/model/dto/thesisDto';
@@ -26,13 +27,21 @@ export class ReviewersComponent implements OnInit {
   language:string="";
   reviewers: any = {};
   message:MessageDto;
+  username: string;
+  firstName: string;
+  lastName: string;
+  roles: string;
+  showStudentStuff: boolean = false;
+  showEmployeeStuff: boolean = false;
+  showRepresentativeStuff: boolean = false;
 
   displayedColumns:string[] =  ['theme','authors','supervisor','type','year','field', 'language', 'reviewers','action'];
 
   constructor(
     private thesisService:ThesisService,
     private snackBar:MatSnackBar,
-    private translateService:TranslateService
+    private translateService:TranslateService,
+    private authService: AuthService,
   ) { }
 
   reserveThesis(thesisId: number){
@@ -81,9 +90,16 @@ export class ReviewersComponent implements OnInit {
       console.log(response);
       this.fetchfilterOptions();
       this.filter();
-      this.openSnackBar(this.translateService.instant('message.sent')+response.receiver, this.translateService.instant('common.close'))
+      this.openSnackBar(this.translateService.instant('message.sent')+' '+response.receiver, this.translateService.instant('common.close'))
+    },  (error) => {
+      console.log(error);
+      this.loading = false;
+      this.openSnackBar(this.translateService.instant('error.'+error.error.key), this.translateService.instant('common.close'))
+      this.fetchfilterOptions();
+      this.filter();
+    }
 
-    });
+    );
 
  
   }
@@ -104,6 +120,24 @@ export class ReviewersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.authService.user.subscribe(response => {
+      if (response !== null) {
+        this.roles = response.roles;
+        this.username = response.username;
+        this.lastName = response.lastName;
+        this.firstName = response.firstName;
+      }
+      else {
+        this.roles = undefined;
+        this.username = undefined;
+        this.lastName = undefined;
+        this.firstName = undefined;
+      }
+      this.showStudentStuff = this.roles  ? this.roles.includes('ROLE_STUDENT') : false;
+      this.showEmployeeStuff = this.roles  ? this.roles.includes('ROLE_EMPLOYEE') : false;
+      this.showRepresentativeStuff = this.roles  ? this.roles.includes('ROLE_REPRESENTATIVE') : false;
+    });
     this.filter();
     this.fetchfilterOptions();
   }

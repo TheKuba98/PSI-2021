@@ -39,6 +39,7 @@ public class ThesisServiceImpl implements ThesisService {
     public static final boolean NOT_SHARED_WORK = false;
     public static final boolean REGISTERED_BY_STUDENT = true;
     public static final String THESIS_WORKLOAD_LIMIT_REACHED_MESSAGE = "Thesis workload limit has been reached";
+    public static final String STUDENT_AND_THESIS_FIELDS_NOT_EQUAL = "Student fields and thesis field are not equal";
 
     private final ThesisRepository thesisRepository;
     private final ThesisDetailsRepository thesisDetailsRepository;
@@ -131,7 +132,7 @@ public class ThesisServiceImpl implements ThesisService {
         return new FilterOptionsDto(supervisors, thesisTypes, years, fieldNames, languages);
     }
 
-    public ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException {
+    public ThesisDto assignThesisToStudent(String username, int id, String reporter) throws UserNotFoundException, ThesisNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException, BadFieldException {
         String usernameToAssign;
         if (Objects.nonNull(username)) {
             usernameToAssign = username;
@@ -153,6 +154,10 @@ public class ThesisServiceImpl implements ThesisService {
 
         if (isStudentAlreadyAssignedToThesis(student, thesis)) {
             throw new UserAlreadyAssignedException(STUDENT_ALREADY_ASSIGNED_MESSAGE);
+        }
+
+        if (!student.getField().stream().map(Field::getName).collect(Collectors.toList()).contains(thesis.getThesisDetails().getField().getName())) {
+            throw new BadFieldException(STUDENT_AND_THESIS_FIELDS_NOT_EQUAL);
         }
 
         if (hasThesisNoAuthors(thesis)) {
@@ -243,7 +248,7 @@ public class ThesisServiceImpl implements ThesisService {
         }
     }
 
-    public ThesisDto createThesis(ThesisForm thesisForm, String username) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException {
+    public ThesisDto createThesis(ThesisForm thesisForm, String username) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException, BadFieldException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
         Field field = fieldRepository.findByDegreeAndEducationCycleAndName(thesisForm.getType(), thesisForm.getYear(), thesisForm.getField())
@@ -262,9 +267,14 @@ public class ThesisServiceImpl implements ThesisService {
             thesis.setRegisteredByStudent(NOT_REGISTERED_BY_STUDENT);
             thesis.setThesisStatus(ThesisStatus.REGISTERED);
         } else if (user.getRoles().contains(ROLE_STUDENT)) {
-            UniversityEmployee universityEmployee =  universityEmployeeRepository.findByUsername(thesisForm.getSupervisor())
+            UniversityEmployee universityEmployee = universityEmployeeRepository.findByUsername(thesisForm.getSupervisor())
                     .orElseThrow(() -> new UserNotFoundException(USER_NOT_FOUND_MESSAGE));
             Student student = (Student) user;
+
+            if (!student.getField().stream().map(Field::getName).collect(Collectors.toList()).contains(thesisForm.getField())) {
+                throw new BadFieldException(STUDENT_AND_THESIS_FIELDS_NOT_EQUAL);
+            }
+
             thesisDetails.setStudent(student);
             thesis.addAuthor(student);
             thesis.setRegisteredByStudent(REGISTERED_BY_STUDENT);

@@ -38,7 +38,7 @@ public class ThesisControllerImpl implements ThesisController {
     }
 
     @Override
-    public ResponseEntity<ThesisDto> assignThesis(String username, int id, Principal principal) throws ThesisNotFoundException, UserNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException {
+    public ResponseEntity<ThesisDto> assignThesis(String username, int id, Principal principal) throws ThesisNotFoundException, UserNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException, BadFieldException {
         return ResponseEntity.ok(thesisService.assignThesisToStudent(username, id, principal.getName()));
     }
 
@@ -58,7 +58,7 @@ public class ThesisControllerImpl implements ThesisController {
     }
 
     @Override
-    public ResponseEntity<ThesisDto> createThesis(ThesisForm thesisForm, Principal principal) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException {
+    public ResponseEntity<ThesisDto> createThesis(ThesisForm thesisForm, Principal principal) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException, BadFieldException {
         return ResponseEntity.ok(thesisService.createThesis(thesisForm, principal.getName()));
     }
 

@@ -53,7 +53,7 @@ public class Thesis {
     private ThesisStatus thesisStatus;
 
     @ManyToOne
-    @JoinColumn(name="username", nullable=false)
+    @JoinColumn(name="username")
     private UniversityEmployee supervisor;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -33,7 +33,7 @@ public interface ThesisController {
     @PostMapping("/theses/{id}/assign" )
     ResponseEntity<ThesisDto> assignThesis(@RequestParam(required = false) String username,
                                            @PathVariable int id,
-                                           Principal principal) throws ThesisNotFoundException, UserNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException;
+                                           Principal principal) throws ThesisNotFoundException, UserNotFoundException, UserAlreadyAssignedException, ThesisNotAvailableException, AuthorsLimitReachedException, BadFieldException;
 
     @PreAuthorize("hasRole('EMPLOYEE')")
     @PostMapping("/theses/{id}/complete")
@@ -49,7 +49,7 @@ public interface ThesisController {
 
     @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE')")
     @PostMapping("/add-thesis")
-    ResponseEntity<ThesisDto> createThesis(@RequestBody ThesisForm thesisForm, Principal principal) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException;
+    ResponseEntity<ThesisDto> createThesis(@RequestBody ThesisForm thesisForm, Principal principal) throws UserNotFoundException, FieldNotFoundException, ThesisNotAvailableException, BadFieldException;
 
     @PreAuthorize("hasRole('STUDENT') or hasRole('EMPLOYEE')")
     @PutMapping("/update-thesis")

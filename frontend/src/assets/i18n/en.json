@@ -6,7 +6,20 @@
     "update":"Update"
   },
   "message":{
-    "sent":"Sent message to"
+    "sent":"Sent message to",
+    "thesisReserved":"Thesis has been reserved and sent to acceptation",
+    "thesisAccepted":"Thesis has been accepted",
+    "thesisRejected":"Thesis has been rejected",
+    "thesisCompleted":"Thesis has been marked as completed"
+  },
+  "error":{
+    "alreadyAssigned":"This person is already assigned",
+    "userNotFound":"This user does not exist",
+    "authorsLimitReached":"Authors limit has been reached",
+    "badField":"Student and thesis fields are not equal",
+    "fieldNotFound":"Field with following year, degree and name does not exist",
+    "workloadReached":"Thesis worlkoad limit has been reached",
+    "cantBeReviewer":"This person can not be reviewer"
   },
   "language" : {
     "label" : "Language",
